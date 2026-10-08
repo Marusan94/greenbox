@@ -11,7 +11,8 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }], ['list']],
   use: { trace: 'retain-on-failure', screenshot: 'only-on-failure' },
   projects: [
-    { name: 'terramind', testMatch: /terramind\.spec\.ts/, use: { ...devices['Desktop Chrome'], baseURL: process.env.TERRAMIND_URL ?? 'https://terramind-mu.vercel.app' } },
+    // Terramind usa mapa 3D WebGL: --disable-gpu evita cierres de pagina en headless/CI.
+    { name: 'terramind', testMatch: /terramind\.spec\.ts/, use: { ...devices['Desktop Chrome'], baseURL: process.env.TERRAMIND_URL ?? 'https://terramind-mu.vercel.app', launchOptions: { args: ['--disable-gpu'] } } },
     { name: 'pulso', testMatch: /pulso\.spec\.ts/, use: { ...devices['Desktop Chrome'], baseURL: process.env.PULSO_URL ?? 'https://marusan94.github.io/pulso-github/02-midnight-console.html' } },
     { name: 'querylands', testMatch: /querylands\.spec\.ts/, use: { ...devices['Desktop Chrome'], baseURL: process.env.QUERYLANDS_URL ?? 'https://tech-interview-lab.vercel.app/' } },
     { name: 'educore', testMatch: /educore\.spec\.ts/, use: { ...devices['Desktop Chrome'], baseURL: process.env.EDUCORE_URL ?? 'https://educore-frontend-co5c.onrender.com/' } },

@@ -34,9 +34,8 @@ test.describe('Terramind', () => {
   });
 
   test('copiloto acepta pregunta y responde o muestra modo demo', async ({ page }) => {
-    // PENDIENTE (2026-10-08): el panel RAG abre pero la pagina se cierra durante la espera
-    // del textarea en automatizacion (posible crash WebGL/headless). Verificado manual: el chat
-    // "Pregunta a los documentos..." + boton Enviar existen. Se deja en skip hasta estabilizar.
+    // PENDIENTE (2026-10-08): el panel RAG abre pero la pagina se cierra en headless
+    // (probado tambien con --disable-gpu). Verificado manual que el chat existe.
     test.skip(true, 'RAG inestable en headless: pagina se cierra durante waitFor del textarea');
     const santiago = Actor.named('Santiago', page);
     await santiago.attemptsTo(OpenApp.now());
