@@ -1,0 +1,33 @@
+{
+  "name": "qa-screenplay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:terramind": "playwright test tests/terramind.spec.ts",
+    "test:pulso": "playwright test tests/pulso.spec.ts",
+    "test:educore": "playwright test tests/educore.spec.ts",
+    "test:querylands": "playwright test tests/querylands.spec.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "npx tsc --noEmit --pretty false"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@serenity-js/assertions": "^3.48.1",
+    "@serenity-js/core": "^3.48.1",
+    "@serenity-js/playwright": "^3.48.1",
+    "@serenity-js/playwright-test": "^3.48.1",
+    "@serenity-js/web": "^3.48.1",
+    "@types/node": "^22.10.2",
+    "dotenv": "^17.2.3",
+    "typescript": "^7.0.2"
+  }
+}
