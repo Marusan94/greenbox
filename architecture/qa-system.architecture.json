@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Greenroom QA — mapa del sistema",
+    "output": "flow-report/archify/system.html",
+    "quality_profile": "showcase",
+    "viewBox": [1240, 700],
+    "views": [
+      { "id": "actor", "label": "El actor", "focus": ["santiago", "openapp"], "note": "Santiago, el visitante, intenta tareas con su habilidad BrowseTheWeb." },
+      { "id": "tareas", "label": "Las tareas", "focus": ["openapp", "searchfor", "navtab", "questions"], "note": "OpenApp, SearchFor y NavigateToTab se reutilizan en las 4 suites; Questions verifica." },
+      { "id": "sitios", "label": "Los 4 sitios", "focus": ["terramind", "pulso", "querylands", "educore"], "note": "Deploys reales: mapa 3D con RAG, ranking estatico, retos SQL y login con panel." },
+      { "id": "evidencia", "label": "La evidencia", "focus": ["recorder", "flowjson", "report"], "note": "Cada paso queda grabado con ms y respuesta; el reporte lo dibuja como historia." }
+    ]
+  },
+  "components": [
+    { "id": "santiago", "type": "external", "label": "Santiago", "sublabel": "actor de prueba", "pos": [40, 330], "size": [150, 64] },
+    { "id": "openapp", "type": "frontend", "label": "OpenApp", "sublabel": "abre la app", "pos": [280, 330], "size": [150, 64] },
+    { "id": "searchfor", "type": "frontend", "label": "SearchFor", "sublabel": "busca y filtra", "pos": [280, 150], "size": [150, 64] },
+    { "id": "navtab", "type": "frontend", "label": "NavigateToTab", "sublabel": "navega vistas", "pos": [280, 510], "size": [150, 64] },
+    { "id": "questions", "type": "backend", "label": "Questions", "sublabel": "verifican y responden", "pos": [520, 510], "size": [170, 64] },
+    { "id": "terramind", "type": "frontend", "label": "Terramind", "sublabel": "mapa 3D + RAG", "pos": [520, 330], "size": [170, 64] },
+    { "id": "pulso", "type": "frontend", "label": "Pulso GitHub", "sublabel": "ranking estatico", "pos": [520, 150], "size": [170, 64] },
+    { "id": "querylands", "type": "frontend", "label": "Query Lands", "sublabel": "retos SQL", "pos": [760, 150], "size": [170, 64] },
+    { "id": "educore", "type": "frontend", "label": "EDU.CORE", "sublabel": "login + panel", "pos": [760, 510], "size": [170, 64] },
+    { "id": "recorder", "type": "backend", "label": "Flow recorder", "sublabel": "graba cada paso", "pos": [760, 330], "size": [150, 64] },
+    { "id": "flowjson", "type": "database", "label": "flow/*.json", "sublabel": "evidencia versionada", "pos": [1000, 330], "size": [150, 64] },
+    { "id": "report", "type": "frontend", "label": "Report + visor", "sublabel": "historias y secuencias", "pos": [1000, 150], "size": [150, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Actor Plane", "wraps": ["santiago"] },
+    { "kind": "region", "label": "Task Plane (Screenplay)", "wraps": ["openapp", "searchfor", "navtab", "questions"] },
+    { "kind": "region", "label": "SUT Plane (4 en vivo)", "wraps": ["terramind", "pulso", "querylands", "educore"] },
+    { "kind": "region", "label": "Evidence Plane", "wraps": ["recorder", "flowjson", "report"] }
+  ],
+  "connections": [
+    { "id": "intenta", "from": "santiago", "to": "openapp", "label": "attemptsTo", "variant": "emphasis" },
+    { "id": "abre", "from": "openapp", "to": "terramind", "label": "abre", "variant": "emphasis", "labelAt": [475, 390] },
+    { "id": "graba", "from": "terramind", "to": "recorder", "label": "graba pasos", "variant": "emphasis" },
+    { "id": "persiste", "from": "recorder", "to": "flowjson", "label": "persiste" },
+    { "id": "dibuja", "from": "flowjson", "to": "report", "label": "dibuja" },
+    { "id": "usa-buscar", "from": "santiago", "to": "searchfor", "label": "usa", "variant": "dashed", "fromSide": "top", "toSide": "left" },
+    { "id": "filtra", "from": "searchfor", "to": "pulso", "label": "filtra" },
+    { "id": "usa-navegar", "from": "santiago", "to": "navtab", "label": "usa", "variant": "dashed", "fromSide": "bottom", "toSide": "left" },
+    { "id": "cambia-vista", "from": "navtab", "to": "educore", "label": "cambia vista", "fromSide": "bottom", "toSide": "bottom", "via": [[355, 625], [845, 625]] },
+    { "id": "abre-retos", "from": "openapp", "to": "querylands", "label": "abre", "fromSide": "right", "toSide": "top", "via": [[480, 362], [480, 270], [845, 270], [845, 80]] },
+    { "id": "verifica", "from": "questions", "to": "terramind", "label": "verifica" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Screenplay en una frase", "items": ["Santiago intenta Tasks y hace Questions", "Ningun selector vive en la prueba", "Las Tasks se reutilizan en 4 suites"] },
+    { "dot": "emerald", "title": "Evidencia real", "items": ["flow/*.json versionado con cada corrida", "8 pasan, 4 skip honestos, 0 fallan", "Sin sleeps fijos: esperas con reintento"] },
+    { "dot": "orange", "title": "Capas del flujo", "items": ["Actor → Tasks → Pagina → Evidencia", "El modulo adapter no copia el renderer", "Las vistas guiadas ya son el guion"] }
+  ]
+}

@@ -344,7 +344,7 @@ function main() {
     '<button class="pill" id="stillBtn"><span class="d off" id="stillDot"></span>Still</button>' +
     '<button class="pill" id="presentBtn">⛶ Present</button>' +
     '<div class="pop"><button class="pill" id="exportBtn">⤓ Export ▾</button><div class="menu" id="exportMenu">' +
-    '<button data-x="svg">Descargar SVG (diagrama visible)</button><button data-x="copy">Copiar SVG (portapapeles)</button><button data-x="print">Imprimir / PDF</button></div></div></div></header>' +
+    '<button data-x="svg">Descargar SVG (diagrama visible)</button><button data-x="copy">Copiar SVG (portapapeles)</button><button data-x="print">Imprimir / PDF</button></div></div><a class="pill" href="archify/system.html" style="text-decoration:none">Mapa del sistema</a></div></header>' +
     '<div class="guide"><div class="ghead"><a class="link" id="backBtn" title="Atrás">←</a><div><small id="gcount">GUIDED VIEWS 1 / 1</small><div class="track"><div id="bar"></div></div><b>Overview</b> <span class="sub">' + totalBeats + ' selected nodes</span></div></div>' +
     '<div class="chain">' + chain + '</div>' +
     '<div class="gact"><button class="play" id="playBtn">▶ Play story</button><button class="link" id="copyBtn"># Copy moment</button><button class="link" id="showAll">Show all</button>' +
