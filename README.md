@@ -7,7 +7,7 @@
 | Requisito de la oferta | Evidencia en este repo | Estado |
 |---|---|---|
 | Playwright (no negociable) | Suites E2E en Chromium, `playwright.config.ts` (projects por sitio, `trace: retain-on-failure`, reporte HTML, `workers: 1`) | ✅ Verificado |
-| Patrón Screenplay (no negociable) | Núcleo `src/core/`: `Actor` + habilidad `BrowseTheWeb`, `Task` (`OpenApp`, `SearchFor`, `NavigateToTab`), `Question` (`PageTitle`, `IsVisible`, `CountOf`) reutilizados en las 4 suites | ✅ Verificado |
+| Patrón Screenplay (no negociable) | Núcleo `src/core/` reutilizado en 4 suites **+ suite oficial Serenity/JS** (`tests/serenity-pulso.spec.ts` con Actor/Tasks/Questions de la librería y reporte Serenity BDD) | ✅ Verificado |
 | POM y otros patrones | Comparativa POM vs Screenplay con ejemplo real del repo (sección 4) | ✅ Verificado |
 | Smoke + regresión | Tags `@smoke` / `@regression`; `npm run test:smoke` (push) y `test:regression` (cron nocturno en CI) | ✅ Verificado |
 | Caja negra (equivalencia, límites) | Login válido/inválido (equivalencia), password < 6 caracteres (valor límite), tablas con conteo > 0 | ✅ Verificado |
@@ -73,6 +73,8 @@ npm run typecheck
 npm test                        # todo (8 pasan, 4 skip, 0 fallan)
 npm run test:smoke               # solo @smoke (lo que corre en cada push)
 npm run test:regression          # solo @regression (lo que corre de noche)
+npm run test:serenity               # suite oficial Serenity/JS (Pulso, runner + actor de la librería)
+npm run test:serenity:report        # genera el HTML de Serenity BDD en target/site/serenity (requiere Java)
 npm run test:terramind | test:pulso | test:educore | test:querylands
 npm run flow:report              # dibuja el flujo visual de la última corrida
 ```
@@ -99,5 +101,5 @@ Reglas anti-flakiness aplicadas: esperas con reintento en vez de `count()` puntu
 ## 9. Notas honestas
 
 - `goto('/')` ignora la ruta de una `baseURL` que apunta a un archivo (Pulso): se navega a la URL completa.
-- Sin reporte Serenity BDD: el módulo Flow + el HTML de Playwright cubren la evidencia visual (paquetes `@serenity-js/*@3.48.1` instalados y fijados).
+- Reporte Serenity BDD oficial en `target/site/serenity` para la suite `serenity-pulso` (paquetes `@serenity-js/*@3.48.x` fijados; el HTML se genera con Java).
 - Login válido de EDU.CORE requiere `EDUCORE_USER`/`EDUCORE_PASS` y queda en `skip` sin ellas.

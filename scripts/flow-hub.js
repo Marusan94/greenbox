@@ -55,6 +55,7 @@ function main() {
     '<button data-src="archify/system.html" class="on">Mapa del sistema</button>' +
     '<button data-src="index.html">Historias Flow</button>' +
     '<button data-ext="../playwright-report/index.html">Reporte Playwright ↗</button>' +
+    '<button data-ext="../target/site/serenity/index.html">Reporte Serenity ↗</button>' +
     '<div class="grp">SECUENCIAS · VISOR OFICIAL</div>' + seqLinks + '</nav>' +
     '<div class="meta"><b>8 ✓</b> · 4 skip · 0 fallos<br>flow-report/' + today + '</div></aside>' +
     '<main><iframe id="stage" src="archify/system.html" title="vista"></iframe></main>' +
@@ -67,7 +68,7 @@ function main() {
 
   fs.mkdirSync('flow-report', { recursive: true });
   fs.writeFileSync(OUT, html);
-  console.log('Hub OK: 3 vistas + ' + seqs.length + ' secuencias -> ' + OUT);
+  console.log('Hub OK: vistas + ' + seqs.length + ' secuencias -> ' + OUT);
   void path;
 }
 

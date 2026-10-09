@@ -6,4 +6,5 @@ flow-check.png
 /flow-report/
 .env
 dist/
+target/
 *.log
