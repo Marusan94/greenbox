@@ -54,14 +54,14 @@ function main() {
     '<nav><div class="grp">VISTAS</div>' +
     '<button data-src="archify/system.html" class="on">Mapa del sistema</button>' +
     '<button data-src="index.html">Historias Flow</button>' +
-    '<button data-src="../playwright-report/index.html">Reporte Playwright</button>' +
+    '<button data-ext="../playwright-report/index.html">Reporte Playwright ↗</button>' +
     '<div class="grp">SECUENCIAS · VISOR OFICIAL</div>' + seqLinks + '</nav>' +
     '<div class="meta"><b>8 ✓</b> · 4 skip · 0 fallos<br>flow-report/' + today + '</div></aside>' +
     '<main><iframe id="stage" src="archify/system.html" title="vista"></iframe></main>' +
     '<script>' +
     'var stage=document.getElementById("stage");' +
     'function go(src,btn){stage.src=src;var bs=document.querySelectorAll("nav button");for(var i=0;i<bs.length;i++)bs[i].classList.remove("on");if(btn)btn.classList.add("on");try{location.hash="#/"+src;}catch(e){}}' +
-    'var btns=document.querySelectorAll("nav button");for(var i=0;i<btns.length;i++)(function(b){b.addEventListener("click",function(){go(b.getAttribute("data-src"),b);});})(btns[i]);' +
+    'var btns=document.querySelectorAll("nav button");for(var i=0;i<btns.length;i++)(function(b){b.addEventListener("click",function(){var x=b.getAttribute("data-ext");if(x){window.open(x,"_blank");return;}go(b.getAttribute("data-src"),b);});})(btns[i]);' +
     'try{var h=location.hash.replace(/^#\\/+/, "");if(h){for(var j=0;j<btns.length;j++){if(btns[j].getAttribute("data-src")===h){go(h,btns[j]);break;}}}}catch(e){}' +
     '</script></body></html>';
 
