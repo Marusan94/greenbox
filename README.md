@@ -38,14 +38,14 @@ npm run test:terramind | test:pulso | test:educore | test:querylands
 
 URLs por variables (`TERRAMIND_URL`, `PULSO_URL`, `QUERYLANDS_URL`, `EDUCORE_URL`); ver `.env.example`.
 
-## Estado real (última ejecución: 2026-10-08)
+## Estado real (última ejecución: 2026-10-08 — 8 pasan, 4 skip, 0 fallan)
 
 | Proyecto | Resultado | Nota |
 |---|---|---|
-| Pulso | 2 pasan, 1 skip | Sin buscador visible en esta versión |
-| Terramind | 2 pasan, 1 skip | Copiloto en skip: panel RAG abre pero la página se cierra en headless (verificado manual que el chat existe) |
-| QueryLands | 2 pasan, 1 skip | Ejecutar-consulta en skip: sin botón de ejecutar visible tras CONTINUAR |
-| EDU.CORE | 1 pasa, 2 skip | Nueva UI con login en camino (redeploy Render pendiente); selectores ya listos |
+| Pulso | 2 pasan, 1 skip | Sin buscador visible (esperado 15 s con reintento) |
+| Terramind | 2 pasan, 1 skip | Copiloto en skip: panel RAG abre pero la página se cierra en headless (probado con --disable-gpu; verificado manual) |
+| QueryLands | 3 pasan | — |
+| EDU.CORE | 1 pasa, 2 skip | Nueva UI con login en camino (redeploy Render pendiente); selectores exactos ya listos |
 
 ## Limitaciones honestas
 

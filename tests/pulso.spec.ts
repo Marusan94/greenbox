@@ -19,24 +19,30 @@ test.describe('Pulso GitHub', () => {
     const santiago = Actor.named('Santiago', page);
     await page.goto(PULSO_APP);
     const box = page.getByRole('searchbox').or(page.getByPlaceholder(/buscar|search/i)).first();
-    if ((await box.count()) === 0) test.skip(true, 'Sin buscador visible en esta version');
-    else {
-      const before = await santiago.asks(CountOf.elements('table tbody tr, article, li'));
-      await santiago.attemptsTo(SearchFor.text('zzzz-sin-resultados-123'));
-      const after = await santiago.asks(CountOf.elements('table tbody tr, article, li'));
-      expect(after).toBeLessThanOrEqual(before);
+    try {
+      await box.waitFor({ state: 'visible', timeout: 15_000 });
+    } catch {
+      test.skip(true, 'Sin buscador visible en esta version');
+      return;
     }
+    const before = await santiago.asks(CountOf.elements('table tbody tr, article, li'));
+    await santiago.attemptsTo(SearchFor.text('zzzz-sin-resultados-123'));
+    const after = await santiago.asks(CountOf.elements('table tbody tr, article, li'));
+    expect(after).toBeLessThanOrEqual(before);
   });
 
   test('cambiar categoria actualiza la vista', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await page.goto(PULSO_APP);
     const filter = page.locator('a, button, select, [role="tab"], [role="combobox"]', { hasText: /tema| categor|trend|python|javascript|todos/i }).first();
-    if ((await filter.count()) === 0) test.skip(true, 'Sin filtros visibles en esta version');
-    else {
-      await filter.click();
-      await page.waitForLoadState('domcontentloaded');
-      expect(await santiago.asks(CountOf.elements('body *'))).toBeGreaterThan(0);
+    try {
+      await filter.waitFor({ state: 'visible', timeout: 15_000 });
+    } catch {
+      test.skip(true, 'Sin filtros visibles en esta version');
+      return;
     }
+    await filter.click();
+    await page.waitForLoadState('domcontentloaded');
+    expect(await santiago.asks(CountOf.elements('body *'))).toBeGreaterThan(0);
   });
 });

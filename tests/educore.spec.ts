@@ -17,17 +17,21 @@ test.describe('EDU.CORE', () => {
     await santiago.attemptsTo(OpenApp.now());
     // Nueva UI comercial: pestana "Iniciar Sesion" -> labels exactos del repo (CommercialLoginView.jsx)
     const tab = page.getByRole('button', { name: /iniciar sesion/i }).first();
-    if ((await tab.count()) > 0) await tab.click();
+    await tab.click({ timeout: 10_000 }).catch(() => {}); // si no hay pestana, el form ya esta en modo login
     const user = page.getByPlaceholder('nombre@institucion.edu.co').first();
     const pass = page.getByPlaceholder('Tu contrasena').first();
-    if ((await user.count()) === 0 || (await pass.count()) === 0) test.skip(true, 'Sin formulario de login visible');
-    else {
-      await user.fill('invalido@test.com');
-      await pass.fill('123'); // <6 caracteres: dispara validacion local determinista
-      await page.getByRole('button', { name: /entrar a mi portal/i }).first().click();
-      // El bloque de error siempre titula "No se pudo continuar"
-      await expect(page.getByText(/no se pudo continuar/i).first()).toBeVisible({ timeout: 15_000 });
+    try {
+      await user.waitFor({ state: 'visible', timeout: 20_000 }); // el redeploy de Render puede tardar
+      await pass.waitFor({ state: 'visible', timeout: 10_000 });
+    } catch {
+      test.skip(true, 'Sin formulario de login visible (nueva UI pendiente de deploy en Render)');
+      return;
     }
+    await user.fill('invalido@test.com');
+    await pass.fill('123'); // <6 caracteres: dispara validacion local determinista
+    await page.getByRole('button', { name: /entrar a mi portal/i }).first().click();
+    // El bloque de error siempre titula "No se pudo continuar"
+    await expect(page.getByText(/no se pudo continuar/i).first()).toBeVisible({ timeout: 15_000 });
   });
 
   test('login valido llega al panel (requiere env)', async ({ page }) => {

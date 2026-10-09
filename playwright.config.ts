@@ -7,6 +7,8 @@ dotenv.config();
 export default defineConfig({
   testDir: './tests',
   timeout: 60_000,
+  // Sitios en capa gratuita (Vercel/Render/Pages): en serie para no saturarlos ni falsear tiempos.
+  workers: 1,
   retries: process.env.CI ? 1 : 0,
   reporter: [['html', { open: 'never' }], ['list']],
   use: { trace: 'retain-on-failure', screenshot: 'only-on-failure' },
