@@ -52,12 +52,12 @@ function main() {
     '</style></head><body>' +
     '<aside><div class="brand"><h1><span class="tdot"></span>Greenroom QA<span class="signal">HUB</span></h1><p class="sub">Actor → Tasks → Page · ' + today + '</p></div>' +
     '<nav><div class="grp">VISTAS</div>' +
-    '<button data-src="index.html" class="on">Historias Flow</button>' +
-    (sys.length ? '<button data-src="archify/system.html">Mapa del sistema</button>' : '') +
+    '<button data-src="archify/system.html" class="on">Mapa del sistema</button>' +
+    '<button data-src="index.html">Historias Flow</button>' +
     '<button data-src="../playwright-report/index.html">Reporte Playwright</button>' +
     '<div class="grp">SECUENCIAS · VISOR OFICIAL</div>' + seqLinks + '</nav>' +
     '<div class="meta"><b>8 ✓</b> · 4 skip · 0 fallos<br>flow-report/' + today + '</div></aside>' +
-    '<main><iframe id="stage" src="index.html" title="vista"></iframe></main>' +
+    '<main><iframe id="stage" src="archify/system.html" title="vista"></iframe></main>' +
     '<script>' +
     'var stage=document.getElementById("stage");' +
     'function go(src,btn){stage.src=src;var bs=document.querySelectorAll("nav button");for(var i=0;i<bs.length;i++)bs[i].classList.remove("on");if(btn)btn.classList.add("on");try{location.hash="#/"+src;}catch(e){}}' +
