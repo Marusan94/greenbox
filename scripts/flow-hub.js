@@ -48,21 +48,25 @@ function main() {
     'nav button .n{display:inline-block;border:1.5px solid #22D3EE;color:#22D3EE;border-radius:50%;min-width:20px;height:20px;line-height:17px;text-align:center;font-size:.625rem}' +
     '.meta{padding:.9rem 1.25rem;border-top:1px solid #1E293B;color:#94A3B8;font-size:.7rem}' +
     '.meta b{color:#34D399}' +
-    'main{flex:1;height:100vh;background:#020617}iframe{width:100%;height:100%;border:0;background:#020617}' +
+    'main{flex:1;height:100vh;background:#020617}iframe{width:100%;height:100%;border:0;background:#020617;transition:opacity .28s ease,transform .28s ease}' +
+    'iframe.switching{opacity:0;transform:translateY(8px)}' +
     '</style></head><body>' +
     '<aside><div class="brand"><h1><span class="tdot"></span>Greenroom QA<span class="signal">HUB</span></h1><p class="sub">Actor → Tasks → Page · ' + today + '</p></div>' +
     '<nav><div class="grp">VISTAS</div>' +
     '<button data-src="archify/system.html" class="on">Mapa del sistema</button>' +
     '<button data-src="index.html">Historias Flow</button>' +
-    '<button data-ext="../playwright-report/index.html">Reporte Playwright ↗</button>' +
-    '<button data-ext="../target/site/serenity/index.html">Reporte Serenity ↗</button>' +
+    '<button data-src="../playwright-report/index.html">Reporte Playwright</button>' +
+    '<button data-src="../target/site/serenity/index.html">Reporte Serenity</button>' +
     '<div class="grp">SECUENCIAS · VISOR OFICIAL</div>' + seqLinks + '</nav>' +
     '<div class="meta"><b>8 ✓</b> · 4 skip · 0 fallos<br>flow-report/' + today + '</div></aside>' +
     '<main><iframe id="stage" src="archify/system.html" title="vista"></iframe></main>' +
     '<script>' +
     'var stage=document.getElementById("stage");' +
-    'function go(src,btn){stage.src=src;var bs=document.querySelectorAll("nav button");for(var i=0;i<bs.length;i++)bs[i].classList.remove("on");if(btn)btn.classList.add("on");try{location.hash="#/"+src;}catch(e){}}' +
-    'var btns=document.querySelectorAll("nav button");for(var i=0;i<btns.length;i++)(function(b){b.addEventListener("click",function(){var x=b.getAttribute("data-ext");if(x){window.open(x,"_blank");return;}go(b.getAttribute("data-src"),b);});})(btns[i]);' +
+    'function go(src,btn){stage.classList.add("switching");' +
+    'setTimeout(function(){stage.src=src;},120);' +
+    'var bs=document.querySelectorAll("nav button");for(var i=0;i<bs.length;i++)bs[i].classList.remove("on");if(btn)btn.classList.add("on");try{location.hash="#/"+src;}catch(e){}}' +
+    'stage.addEventListener("load",function(){stage.classList.remove("switching");});' +
+    'var btns=document.querySelectorAll("nav button");for(var i=0;i<btns.length;i++)(function(b){b.addEventListener("click",function(){go(b.getAttribute("data-src"),b);});})(btns[i]);' +
     'try{var h=location.hash.replace(/^#\\/+/, "");if(h){for(var j=0;j<btns.length;j++){if(btns[j].getAttribute("data-src")===h){go(h,btns[j]);break;}}}}catch(e){}' +
     '</script></body></html>';
 
