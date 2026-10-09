@@ -5,7 +5,7 @@ import { PageTitle, IsVisible, CountOf } from '../src/core/questions';
 
 // Terramind: mapa 3D + panel + copiloto. Solo valida estructura (datos SIATA son en vivo).
 test.describe('Terramind', () => {
-  test('mapa y panel cargan sin errores criticos', async ({ page }) => {
+  test('mapa y panel cargan sin errores criticos @smoke', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(String(e)));
@@ -19,7 +19,7 @@ test.describe('Terramind', () => {
     expect(errors.filter((e) => !/favicon|net::/i.test(e))).toHaveLength(0);
   });
 
-  test('navegar entre secciones muestra contenido', async ({ page }) => {
+  test('navegar entre secciones muestra contenido @smoke @regression', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await santiago.attemptsTo(OpenApp.now());
     const tabs = page.locator('a, button, [role="tab"]', { hasText: /estacion|agua|aire|mapa|dashboard/i });
@@ -33,7 +33,7 @@ test.describe('Terramind', () => {
     expect(await santiago.asks(CountOf.elements('main *, section *'))).toBeGreaterThan(0);
   });
 
-  test('copiloto acepta pregunta y responde o muestra modo demo', async ({ page }) => {
+  test('copiloto acepta pregunta y responde o muestra modo demo @regression', async ({ page }) => {
     // PENDIENTE (2026-10-08): el panel RAG abre pero la pagina se cierra en headless
     // (probado tambien con --disable-gpu). Verificado manual que el chat existe.
     test.skip(true, 'RAG inestable en headless: pagina se cierra durante waitFor del textarea');

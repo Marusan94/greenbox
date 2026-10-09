@@ -8,14 +8,14 @@ const PULSO_APP = process.env.PULSO_URL ?? 'https://marusan94.github.io/pulso-gi
 
 // Pulso GitHub: ranking estatico. Valida estructura, no valores exactos (cambian semanalmente).
 test.describe('Pulso GitHub', () => {
-  test('la tabla muestra repositorios', async ({ page }) => {
+  test('la tabla muestra repositorios @smoke', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await page.goto(PULSO_APP);
     const rows = await santiago.asks(CountOf.elements('table tbody tr, [data-repo], .repo, article, li a[href*="github.com"]'));
     expect(rows).toBeGreaterThan(0);
   });
 
-  test('el buscador filtra y reduce resultados', async ({ page }) => {
+  test('el buscador filtra y reduce resultados @smoke @regression', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await page.goto(PULSO_APP);
     const box = page.getByRole('searchbox').or(page.getByPlaceholder(/buscar|search/i)).first();
@@ -31,7 +31,7 @@ test.describe('Pulso GitHub', () => {
     expect(after).toBeLessThanOrEqual(before);
   });
 
-  test('cambiar categoria actualiza la vista', async ({ page }) => {
+  test('cambiar categoria actualiza la vista @smoke', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await page.goto(PULSO_APP);
     const filter = page.locator('a, button, select, [role="tab"], [role="combobox"]', { hasText: /tema| categor|trend|python|javascript|todos/i }).first();

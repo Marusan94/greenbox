@@ -33,8 +33,12 @@ npm install --legacy-peer-deps
 npx playwright install chromium
 npm run typecheck
 npm test                        # todo
+npm run test:smoke               # solo @smoke (push)
+npm run test:regression          # solo @regression (cron nocturno)
 npm run test:terramind | test:pulso | test:educore | test:querylands
 ```
+
+CI (`ci.yml`): matriz por proyecto en push/manual con `@smoke`, regresión `@regression` en cron nocturno (3:00 UTC), reporte por proyecto como artefacto.
 
 URLs por variables (`TERRAMIND_URL`, `PULSO_URL`, `QUERYLANDS_URL`, `EDUCORE_URL`); ver `.env.example`.
 

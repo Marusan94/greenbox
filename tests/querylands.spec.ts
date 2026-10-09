@@ -5,7 +5,7 @@ import { IsVisible, CountOf } from '../src/core/questions';
 
 // Query Lands (LAB.CORE): retos SQL gamificados. No valida el texto exacto del reto.
 test.describe('Query Lands', () => {
-  test('la pantalla inicial muestra retos o islas', async ({ page }) => {
+  test('la pantalla inicial muestra retos o islas @smoke', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await santiago.attemptsTo(OpenApp.now());
     const retos = await santiago.asks(CountOf.elements('a, button'));
@@ -13,7 +13,7 @@ test.describe('Query Lands', () => {
     expect(await santiago.asks(IsVisible.element('h1, h2, main'))).toBe(true);
   });
 
-  test('abrir un reto muestra editor y enunciado', async ({ page }) => {
+  test('abrir un reto muestra editor y enunciado @smoke', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await santiago.attemptsTo(OpenApp.now());
     // Entrada al reto: el boton CONTINUAR (no el nav Desafios, que lleva al listado).
@@ -29,7 +29,7 @@ test.describe('Query Lands', () => {
     await expect(page.locator('textarea, [role="textbox"], .monaco-editor, code, pre').first()).toBeVisible({ timeout: 20_000 });
   });
 
-  test('ejecutar consulta devuelve resultado o validacion', async ({ page }) => {
+  test('ejecutar consulta devuelve resultado o validacion @smoke @regression', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await santiago.attemptsTo(OpenApp.now());
     const reto = page.locator('a, button', { hasText: /continuar/i }).first();

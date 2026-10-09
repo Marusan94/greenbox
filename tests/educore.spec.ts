@@ -5,14 +5,14 @@ import { IsVisible } from '../src/core/questions';
 
 // EDU.CORE: gestion estudiantil. Credenciales solo por entorno; sin ellas el login real queda en skip.
 test.describe('EDU.CORE', () => {
-  test('la pagina de inicio o login carga', async ({ page }) => {
+  test('la pagina de inicio o login carga @smoke', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await santiago.attemptsTo(OpenApp.now());
     expect(await santiago.asks(IsVisible.element('body'))).toBe(true);
     expect(await santiago.asks(IsVisible.element('h1, h2, form, main'))).toBe(true);
   });
 
-  test('login con credenciales invalidas muestra error', async ({ page }) => {
+  test('login con credenciales invalidas muestra error @smoke @regression', async ({ page }) => {
     const santiago = Actor.named('Santiago', page);
     await santiago.attemptsTo(OpenApp.now());
     // Nueva UI comercial: pestana "Iniciar Sesion" -> labels exactos del repo (CommercialLoginView.jsx)
@@ -34,7 +34,7 @@ test.describe('EDU.CORE', () => {
     await expect(page.getByText(/no se pudo continuar/i).first()).toBeVisible({ timeout: 15_000 });
   });
 
-  test('login valido llega al panel (requiere env)', async ({ page }) => {
+  test('login valido llega al panel (requiere env) @regression', async ({ page }) => {
     if (!process.env.EDUCORE_USER || !process.env.EDUCORE_PASS) test.skip(true, 'Sin EDUCORE_USER/EDUCORE_PASS en entorno');
     else {
       const santiago = Actor.named('Santiago', page);
