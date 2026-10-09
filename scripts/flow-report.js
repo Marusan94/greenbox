@@ -269,7 +269,7 @@ function main() {
     ),
   );
 
-  const html = '<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+  const html = '<!doctype html><html lang="es" data-theme="dark" data-preset="classic"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<title>Greenroom QA — Flow</title>' +
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">' +
     '<style>' +
@@ -329,6 +329,15 @@ function main() {
     '.note ul{margin:0;padding-left:1.1rem;font-size:.75rem;color:var(--muted)}' +
     '.zoombar{position:fixed;bottom:1.25rem;right:1.25rem;background:var(--panel);border:1px solid var(--border);border-radius:999px;display:flex;gap:.25rem;align-items:center;padding:.35rem .7rem;z-index:40}' +
     '.zoombar button{background:none;border:none;color:var(--ink);font:inherit;font-size:.75rem;cursor:pointer;padding:.3rem .55rem;border-radius:.5rem}.zoombar button:hover{color:var(--teal)}' +
+    'html[data-preset="signal"] body{background:radial-gradient(1200px 600px at 50% -10%,rgba(34,211,238,.10),transparent),linear-gradient(180deg,var(--bg1),var(--bg2))}' +
+    'html[data-preset="signal"] .canvas{box-shadow:0 28px 80px rgba(0,0,0,.34)}' +
+    'html[data-preset="blueprint"] .canvas,html[data-preset="blueprint"] .guide,html[data-preset="blueprint"] .note,html[data-preset="blueprint"] .chapcard{border-radius:.35rem}' +
+    'html[data-preset="blueprint"] .pill,html[data-preset="blueprint"] .chap,html[data-preset="blueprint"] .zoombar{border-radius:.2rem}' +
+    'html[data-preset="blueprint"] *{box-shadow:none!important}' +
+    'html[data-preset="blueprint"] .node.hot .card{filter:none}' +
+    'html[data-preset="editorial"] body{max-width:860px}html[data-preset="editorial"] h1{font-size:2rem}' +
+    'html[data-preset="editorial"] .canvas{padding:2.5rem;box-shadow:0 8px 24px rgba(0,0,0,.06)}' +
+    'html[data-preset="editorial"] .notes{grid-template-columns:1fr}' +
     '#zpct{min-width:3.2em;text-align:center;color:var(--muted)}' +
     'details.canvas summary{cursor:pointer;list-style:none}details.canvas summary::-webkit-details-marker{display:none}' +
     'details.canvas summary .hint{color:var(--teal);font-size:.625rem;font-weight:700;letter-spacing:.12em}' +
@@ -340,7 +349,7 @@ function main() {
     '<p class="sub">Data flow: Actor → Tasks → Page · ' + tests.length + ' pruebas · ' + totalT + ' tareas · ' + totalQ + ' preguntas · ' + today + '</p></div>' +
     '<div class="pills"><button class="pill" id="themeBtn">◐ Theme</button>' +
     '<div class="pop"><button class="pill" id="flowBtn"><span class="d"></span>Flow ▾</button><div class="menu" id="flowMenu">' +
-    '<button data-m="run" class="sel">Run plane (todo junto)</button><button data-m="proj">Project planes (por proyecto)</button></div></div>' +
+    '<button data-p="classic" class="sel">Classic</button><button data-p="signal">Signal Flow</button><button data-p="blueprint">Blueprint</button><button data-p="editorial">Editorial</button></div></div>' +
     '<button class="pill" id="stillBtn"><span class="d off" id="stillDot"></span>Still</button>' +
     '<button class="pill" id="presentBtn">⛶ Present</button>' +
     '<div class="pop"><button class="pill" id="exportBtn">⤓ Export ▾</button><div class="menu" id="exportMenu">' +
@@ -350,7 +359,7 @@ function main() {
     '<div class="gact"><button class="play" id="playBtn">▶ Play story</button><button class="link" id="copyBtn"># Copy moment</button><button class="link" id="showAll">Show all</button>' +
     '<span class="counts">=' + tests.length + ' <b>+' + totalBeats + '</b></span><div id="beat">Pulsa Play para recorrer cada paso.</div></div></div>' +
     '<div class="chapcard" id="chapcard"><b><span class="n" style="display:inline-block;border:1.5px solid var(--teal);color:var(--teal);border-radius:50%;width:22px;height:22px;line-height:19px;text-align:center;font-size:.625rem;margin-right:8px">01</span><span id="chapTitle">Run overview</span></b><span class="stops" id="chapStops">' + tests.length + ' stops</span></div>' +
-    '<section class="canvas overview"><h2>Run overview</h2><p class="sub">Todas las pruebas en un plano — clic para saltar · <button class="link" id="ovhint">Show all</button></p><div class="zoomable" id="ovwrap">' + overviewRun(tests) + '</div></section>' +
+    '<section class="canvas overview"><h2>Run overview</h2><p class="sub">Todas las pruebas en un plano — clic para saltar · <button class="link" id="ovhint">Show all</button> · <button class="link" id="ovmode">Project planes ⇄</button></p><div class="zoomable" id="ovwrap">' + overviewRun(tests) + '</div></section>' +
     sections +
     '<div class="notes">' + cards + '</div>' +
     '<div class="zoombar"><button id="zout">−</button><span id="zpct">100%</span><button id="zin">＋</button><button id="zall">Show all</button></div>' +
@@ -364,15 +373,17 @@ function main() {
     'ready(function(){' +
     'var q=function(s){return document.querySelector(s);},qa=function(s){return Array.prototype.slice.call(document.querySelectorAll(s));};' +
     'try{var u=new URLSearchParams(location.search);if(u.get("theme")==="dark"||u.get("theme")==="light"){document.documentElement.dataset.theme=u.get("theme");}else if(localStorage.getItem("gr-theme")){document.documentElement.dataset.theme=localStorage.getItem("gr-theme");}}catch(e){}' +
+    'try{var u2=new URLSearchParams(location.search);var pr=u2.get("preset")||localStorage.getItem("gr-preset");if(pr==="classic"||pr==="signal"||pr==="blueprint"||pr==="editorial"){document.documentElement.dataset.preset=pr;qa("#flowMenu button").forEach(function(b){b.classList.toggle("sel",b.getAttribute("data-p")===pr);});}}catch(e){}' +
     'q("#themeBtn").onclick=function(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==="dark"?"light":"dark";try{localStorage.setItem("gr-theme",h.dataset.theme);}catch(e){}};' +
     'q("#presentBtn").onclick=function(){if(!document.fullscreenElement){document.documentElement.requestFullscreen().catch(function(){});}else{document.exitFullscreen();}document.body.classList.add("present");};' +
     'document.addEventListener("fullscreenchange",function(){if(!document.fullscreenElement)document.body.classList.remove("present");});' +
     'function menu(btn,el){q(btn).onclick=function(ev){ev.stopPropagation();qa(".menu").forEach(function(m){if(m!==q(el))m.classList.remove("open");});q(el).classList.toggle("open");};}' +
     'menu("#exportBtn","#exportMenu");menu("#flowBtn","#flowMenu");' +
     'document.addEventListener("click",function(){qa(".menu").forEach(function(m){m.classList.remove("open");});});' +
-    'q("#flowMenu").addEventListener("click",function(ev){var m=ev.target.getAttribute("data-m");if(!m)return;' +
-    'qa("#flowMenu button").forEach(function(b){b.classList.remove("sel");});ev.target.classList.add("sel");' +
-    'q("#ovwrap").innerHTML=(m==="proj"?OVPROJ:OVRUN);bindOv();});' +
+    'q("#flowMenu").addEventListener("click",function(ev){var m=ev.target.getAttribute("data-p");if(!m)return;' +
+    'qa("#flowMenu button").forEach(function(b){b.classList.remove("sel");});ev.target.classList.add("sel");setPreset(m);});' +
+    'function setPreset(m){document.documentElement.dataset.preset=m;try{localStorage.setItem("gr-preset",m);}catch(e){}}' +
+    'var ovmode="run";q("#ovmode").onclick=function(){ovmode=(ovmode==="run"?"proj":"run");q("#ovwrap").innerHTML=(ovmode==="proj"?OVPROJ:OVRUN);bindOv();q("#ovmode").textContent=(ovmode==="run"?"Project planes ⇄":"Run plane ⇄");};' +
     'q("#stillBtn").onclick=function(){still=!still;q("#stillDot").classList.toggle("off",!still);q("#stillBtn").classList.toggle("on",still);if(still&&timer){clearInterval(timer);timer=null;q("#playBtn").textContent="▶ Play story";}};' +
     'function firstSvg(){var secs=qa("details.canvas");for(var i=0;i<secs.length;i++){if(!secs[i].open)continue;var r=secs[i].getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)return secs[i].querySelector("svg");}return document.querySelector("#ovwrap svg");}' +
     'function dl(name,blob){var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);}' +
