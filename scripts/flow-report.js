@@ -67,8 +67,8 @@ function strip(nodes, uid) {
   const GAP = 60;
   const PER = 3;
   const rows = Math.max(1, Math.ceil(nodes.length / PER));
-  const top = 64;
-  const rowH = 150;
+  const top = 56;
+  const rowH = 128;
   const H = top + rows * rowH + 60;
   const pos = (i) => ({ x: 20 + (i % PER) * (CW + GAP), y: top + Math.floor(i / PER) * rowH });
   let s = '<defs><pattern id="dots' + uid + '" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" class="dotgrid"/></pattern></defs>';
@@ -130,8 +130,8 @@ function overview(tests) {
   const GAP = 60;
   const PER = 3;
   const rows = Math.ceil(tests.length / PER);
-  const top = 64;
-  const rowH = 128;
+  const top = 56;
+  const rowH = 112;
   const H = top + rows * rowH + 60;
   const pos = (i) => ({ x: 20 + (i % PER) * (CW + GAP), y: top + Math.floor(i / PER) * rowH });
   let s = '<defs><pattern id="dotsov" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" class="dotgrid"/></pattern></defs>';
@@ -194,10 +194,11 @@ function main() {
 
   const sections = tests
     .map(
-      (t) =>
-        '<section class="canvas" id="sec' + t.i + '"><h2>' + esc(t.title) + '</h2>' +
+      (t, k) =>
+        '<details class="canvas" id="sec' + t.i + '"' + (k === 0 ? ' open' : '') + '><summary><h2>' + esc(t.title) + '</h2>' +
         '<p class="sub">Data flow: Actor → Tasks → Page · ' + t.tq + ' tareas · ' + t.qq + ' preguntas · ' + t.ms + ' ms en pasos</p>' +
-        '<div class="zoomable">' + strip(t.nodes, t.i) + '</div></section>',
+        '<span class="hint">▸ VER DIAGRAMA</span></summary>' +
+        '<div class="zoomable">' + strip(t.nodes, t.i) + '</div></details>',
     )
     .join('\n');
 
@@ -258,6 +259,9 @@ function main() {
     '.lt{font-size:12px;font-weight:700;fill:var(--ink)}.chip{fill:none;stroke-width:2}.chip.nt{stroke:var(--teal)}.chip.nq{stroke:var(--green)}.chip.na{stroke:var(--violet)}' +
     '.chipT{font-size:11px;fill:var(--muted)}' +
     '.node{transition:opacity .18s}.node.dim{opacity:.25}.node.hot .card{stroke-width:4}' +
+    '[data-theme="dark"] .card{stroke-width:1.5}[data-theme="dark"] .plane{opacity:.45}[data-theme="dark"] .dotgrid{opacity:.6}' +
+    'details.canvas summary{cursor:pointer;list-style:none}details.canvas summary::-webkit-details-marker{display:none}' +
+    'details.canvas summary .hint{color:var(--teal);font-size:.625rem;font-weight:700;letter-spacing:.12em}' +
     '.ovnode{cursor:pointer}.ovnode:hover .card{stroke-width:3}' +
     '.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.875rem;margin-top:.5rem}' +
     '.note{background:var(--panel);border:1px solid var(--border);border-radius:1rem;padding:.875rem 1rem}' +
@@ -305,9 +309,10 @@ function main() {
     'q("#zin").onclick=function(){setZ(z+25);};q("#zout").onclick=function(){setZ(z-25);};' +
     'q("#zall").onclick=function(){setZ(100);window.scrollTo({top:0,behavior:"smooth"});};' +
     'q("#ovhint").onclick=function(){setZ(100);window.scrollTo({top:0,behavior:"smooth"});};' +
-    'qa(".ovnode").forEach(function(g){g.addEventListener("click",function(){stop();document.getElementById(g.getAttribute("data-sec")).scrollIntoView({behavior:"smooth",block:"center"});});});' +
+    'qa(".ovnode").forEach(function(g){g.addEventListener("click",function(){stop();var s=document.getElementById(g.getAttribute("data-sec"));if(s.open===false)s.open=true;s.scrollIntoView({behavior:"smooth",block:"center"});});});' +
     'function clearHot(){qa(".node.hot").forEach(function(e){e.classList.remove("hot");});qa(".node.dim").forEach(function(e){e.classList.remove("dim");});}' +
     'function show(i){clearHot();bi=i;var b=beats[i];var sec=document.getElementById(b.sec);' +
+    'if(sec.open===false)sec.open=true;' +
     'sec.scrollIntoView({block:"center",behavior:"smooth"});' +
     'sec.querySelectorAll(".node").forEach(function(e){e.classList.add("dim");});' +
     'var el=document.getElementById(b.node);if(el){el.classList.remove("dim");el.classList.add("hot");}' +
@@ -315,7 +320,7 @@ function main() {
     'q("#gcount").textContent="GUIDED TESTS "+(i+1)+" / "+beats.length;}' +
     'function stop(){if(timer){clearInterval(timer);timer=null;}q("#playBtn").textContent="▶ Play story";}' +
     'q("#playBtn").onclick=function(){if(timer){stop();return;}q("#playBtn").textContent="⏸ Pause";var i=(bi+1)%beats.length;show(i);timer=setInterval(function(){i=(i+1)%beats.length;show(i);},1600);};' +
-    'qa(".chap").forEach(function(c){c.addEventListener("click",function(){stop();document.getElementById(c.getAttribute("data-sec")).scrollIntoView({behavior:"smooth",block:"center"});});});' +
+    'qa(".chap").forEach(function(c){c.addEventListener("click",function(){stop();var s=document.getElementById(c.getAttribute("data-sec"));if(s.open===false)s.open=true;s.scrollIntoView({behavior:"smooth",block:"center"});});});' +
     '});</script></body></html>';
 
   fs.mkdirSync(OUT, { recursive: true });
