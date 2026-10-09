@@ -21,9 +21,8 @@ test.describe('Query Lands', () => {
     if ((await reto.count()) === 0) test.skip(true, 'Sin boton continuar visible en esta version');
     else {
       await reto.click();
-      await page.waitForLoadState('domcontentloaded');
-      const hayEditor = await santiago.asks(IsVisible.element('textarea, [role="textbox"], .monaco-editor, code, pre'));
-      expect(hayEditor).toBe(true);
+      // SPA: no hay recarga de documento, asi que se espera con reintento al editor (no a domcontentloaded).
+      await expect(page.locator('textarea, [role="textbox"], .monaco-editor, code, pre').first()).toBeVisible({ timeout: 20_000 });
     }
   });
 
@@ -34,13 +33,15 @@ test.describe('Query Lands', () => {
     if ((await reto.count()) === 0) test.skip(true, 'Sin reto para ejecutar en esta version');
     else {
       await reto.click();
-      await page.waitForLoadState('domcontentloaded');
       const run = page.getByRole('button', { name: /ejecutar|correr|run|validar|comprobar/i }).first();
-      if ((await run.count()) === 0) test.skip(true, 'Sin boton de ejecutar visible');
-      else {
-        await run.click();
-        await expect(page.getByText(/resultado|correcto|incorrecto|error|fila|valid/i).first()).toBeVisible({ timeout: 20_000 });
+      try {
+        await run.waitFor({ state: 'visible', timeout: 15_000 });
+      } catch {
+        test.skip(true, 'Sin boton de ejecutar visible');
+        return;
       }
+      await run.click();
+      await expect(page.getByText(/resultado|correcto|incorrecto|error|fila|valid/i).first()).toBeVisible({ timeout: 20_000 });
     }
   });
 });
