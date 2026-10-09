@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "ejecutar consulta devuelve resultado o validacion",
+    "output": "flow-report/archify/ejecutar-consulta-devuelve-resultado-o-validacion-smoke-regr.html",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      480
+    ],
+    "views": [
+      {
+        "id": "recorrido",
+        "label": "Recorrido completo",
+        "focus": [
+          "actor",
+          "web"
+        ],
+        "note": "1 tareas y 0 preguntas ejecutadas contra la página real."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "actor",
+      "type": "external",
+      "label": "Santiago",
+      "sublabel": "actor de prueba"
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Página web",
+      "sublabel": "bajo prueba"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "web",
+      "from": 174,
+      "to": 178,
+      "type": "frontend"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 192,
+      "label": "Tareas"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "actor",
+      "to": "web",
+      "y": 170,
+      "label": "OpenApp",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Recorrido verificado",
+      "items": [
+        "1 tareas ejecutadas (869 ms en pasos)",
+        "0 preguntas con respuesta visible",
+        "Tres reintentos: sin sleeps fijos en el codigo"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Evidencia real",
+      "items": []
+    }
+  ]
+}

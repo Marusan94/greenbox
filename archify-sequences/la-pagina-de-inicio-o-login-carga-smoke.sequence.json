@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "la pagina de inicio o login carga",
+    "output": "flow-report/archify/la-pagina-de-inicio-o-login-carga-smoke.html",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      480
+    ],
+    "views": [
+      {
+        "id": "recorrido",
+        "label": "Recorrido completo",
+        "focus": [
+          "actor",
+          "web"
+        ],
+        "note": "1 tareas y 2 preguntas ejecutadas contra la página real."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "actor",
+      "type": "external",
+      "label": "Santiago",
+      "sublabel": "actor de prueba"
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Página web",
+      "sublabel": "bajo prueba"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "web",
+      "from": 174,
+      "to": 338,
+      "type": "frontend"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 192,
+      "label": "Tareas"
+    },
+    {
+      "from": 190,
+      "to": 352,
+      "label": "Preguntas"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "actor",
+      "to": "web",
+      "y": 170,
+      "label": "OpenApp",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m2",
+      "from": "actor",
+      "to": "web",
+      "y": 210,
+      "label": "? IsVisible body",
+      "variant": "default",
+      "note": "true"
+    },
+    {
+      "id": "m3",
+      "from": "web",
+      "to": "actor",
+      "y": 250,
+      "label": "= true",
+      "variant": "return"
+    },
+    {
+      "id": "m4",
+      "from": "actor",
+      "to": "web",
+      "y": 290,
+      "label": "? IsVisible h1, h2, form, main",
+      "variant": "default",
+      "note": "true"
+    },
+    {
+      "id": "m5",
+      "from": "web",
+      "to": "actor",
+      "y": 330,
+      "label": "= true",
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Recorrido verificado",
+      "items": [
+        "1 tareas ejecutadas (2221 ms en pasos)",
+        "2 preguntas con respuesta visible",
+        "Tres reintentos: sin sleeps fijos en el codigo"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Evidencia real",
+      "items": [
+        "IsVisible body = true",
+        "IsVisible h1, h2, form, main = true"
+      ]
+    }
+  ]
+}

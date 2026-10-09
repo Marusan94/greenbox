@@ -21,6 +21,14 @@ const trunc = (s, n) => {
   const t = String(s ?? '');
   return t.length > n ? t.slice(0, n - 1) + '…' : t;
 };
+const slug = (s) =>
+  String(s)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60);
 
 function projectOf(title) {
   const t = title.toLowerCase();
@@ -86,7 +94,7 @@ function strip(nodes, uid) {
     const y = p.y;
     const cls = n.kind === 'task' ? 'nt' : 'nq';
     const lines = wrap2(n.name);
-    s += '<g id="n' + uid + '_' + i + '" class="node">';
+    s += '<g id="n' + uid + '_' + i + '" class="node" data-k="' + n.kind + '">';
     s += '<rect x="' + x + '" y="' + y + '" width="' + CW + '" height="' + CH + '" rx="10" class="card ' + cls + '"/>';
     s += '<rect x="' + (x + 10) + '" y="' + (y + 10) + '" width="18" height="18" rx="4" class="badge ' + cls + '"/>';
     s += '<text x="' + (x + 19) + '" y="' + (y + 23) + '" text-anchor="middle" class="badgeT">' + (n.kind === 'task' ? 'T' : '?') + '</text>';
@@ -249,14 +257,15 @@ function main() {
     .map(
       (t, k) =>
         '<div class="note"><p class="nt"><span class="dot ' + dots[k % 4] + '"></span>' + esc(t.title) + '</p>' +
-        '<ul><li>' + t.tq + ' tareas trazadas con duración real</li><li>' + t.qq + ' preguntas con respuesta visible</li><li>' + t.ms + ' ms acumulados en pasos</li></ul></div>',
+        '<ul><li>' + t.tq + ' tareas trazadas con duración real</li><li>' + t.qq + ' preguntas con respuesta visible</li><li>' + t.ms + ' ms acumulados en pasos</li>' +
+        '<li><a class="link" href="archify/' + slug(t.title) + '.html">Ver en visor Archify →</a></li></ul></div>',
     )
     .join('');
 
   const beats = [];
   tests.forEach((t) =>
     t.nodes.forEach((n, j) =>
-      beats.push({ sec: 'sec' + t.i, node: 'n' + t.i + '_' + j, label: t.title + ' — ' + (n.kind === 'task' ? '▶' : '?') + ' ' + n.name }),
+      beats.push({ sec: 'sec' + t.i, node: 'n' + t.i + '_' + j, label: t.short + ' — ' + (n.kind === 'task' ? '▶' : '?') + ' ' + n.name }),
     ),
   );
 
@@ -291,6 +300,7 @@ function main() {
     '.gact{display:flex;gap:1rem;align-items:center;margin-top:.4rem;flex-wrap:wrap}' +
     '.play{color:var(--teal);font-weight:700;border:none;background:none;font:inherit;font-size:.75rem;cursor:pointer}' +
     '.link{background:none;border:none;color:var(--muted);font:inherit;font-size:.75rem;cursor:pointer}.link:hover{color:var(--teal)}' +
+    'a.link{text-decoration:none}' +
     '.counts{margin-left:auto;color:var(--muted);font-size:.75rem}.counts b{color:var(--teal)}' +
     '#beat{font-size:.75rem;color:var(--muted);width:100%}' +
     '.chapcard{border:1.5px solid var(--teal);border-radius:1rem;padding:.9rem 1.25rem;margin:0 0 1.25rem;box-shadow:0 0 12px rgba(34,211,238,.35);display:flex;justify-content:space-between;align-items:center;gap:1rem}' +
@@ -335,7 +345,7 @@ function main() {
     '<button class="pill" id="presentBtn">⛶ Present</button>' +
     '<div class="pop"><button class="pill" id="exportBtn">⤓ Export ▾</button><div class="menu" id="exportMenu">' +
     '<button data-x="svg">Descargar SVG (diagrama visible)</button><button data-x="copy">Copiar SVG (portapapeles)</button><button data-x="print">Imprimir / PDF</button></div></div></div></header>' +
-    '<div class="guide"><div class="ghead"><a class="link" id="backBtn" title="Atrás">←</a><div><small id="gcount">GUIDED VIEWS 1 / 1</small><br><b>Overview</b> <span class="sub">' + totalBeats + ' selected nodes</span></div></div>' +
+    '<div class="guide"><div class="ghead"><a class="link" id="backBtn" title="Atrás">←</a><div><small id="gcount">GUIDED VIEWS 1 / 1</small><div class="track"><div id="bar"></div></div><b>Overview</b> <span class="sub">' + totalBeats + ' selected nodes</span></div></div>' +
     '<div class="chain">' + chain + '</div>' +
     '<div class="gact"><button class="play" id="playBtn">▶ Play story</button><button class="link" id="copyBtn"># Copy moment</button><button class="link" id="showAll">Show all</button>' +
     '<span class="counts">=' + tests.length + ' <b>+' + totalBeats + '</b></span><div id="beat">Pulsa Play para recorrer cada paso.</div></div></div>' +

@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "cambiar categoria actualiza la vista",
+    "output": "flow-report/archify/cambiar-categoria-actualiza-la-vista-smoke.html",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      480
+    ],
+    "views": [
+      {
+        "id": "recorrido",
+        "label": "Recorrido completo",
+        "focus": [
+          "actor",
+          "web"
+        ],
+        "note": "0 tareas y 1 preguntas ejecutadas contra la página real."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "actor",
+      "type": "external",
+      "label": "Santiago",
+      "sublabel": "actor de prueba"
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Página web",
+      "sublabel": "bajo prueba"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "web",
+      "from": 174,
+      "to": 218,
+      "type": "frontend"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 232,
+      "label": "Preguntas"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "actor",
+      "to": "web",
+      "y": 170,
+      "label": "? CountOf body *",
+      "variant": "default",
+      "note": "1457"
+    },
+    {
+      "id": "m2",
+      "from": "web",
+      "to": "actor",
+      "y": 210,
+      "label": "= 1457",
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Recorrido verificado",
+      "items": [
+        "0 tareas ejecutadas (0 ms en pasos)",
+        "1 preguntas con respuesta visible",
+        "Tres reintentos: sin sleeps fijos en el codigo"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Evidencia real",
+      "items": [
+        "CountOf body * = 1457"
+      ]
+    }
+  ]
+}

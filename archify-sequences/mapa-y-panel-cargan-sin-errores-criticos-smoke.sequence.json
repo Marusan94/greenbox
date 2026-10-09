@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "mapa y panel cargan sin errores criticos",
+    "output": "flow-report/archify/mapa-y-panel-cargan-sin-errores-criticos-smoke.html",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      530
+    ],
+    "views": [
+      {
+        "id": "recorrido",
+        "label": "Recorrido completo",
+        "focus": [
+          "actor",
+          "web"
+        ],
+        "note": "1 tareas y 3 preguntas ejecutadas contra la página real."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "actor",
+      "type": "external",
+      "label": "Santiago",
+      "sublabel": "actor de prueba"
+    },
+    {
+      "id": "web",
+      "type": "frontend",
+      "label": "Página web",
+      "sublabel": "bajo prueba"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "web",
+      "from": 174,
+      "to": 418,
+      "type": "frontend"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 192,
+      "label": "Tareas"
+    },
+    {
+      "from": 190,
+      "to": 432,
+      "label": "Preguntas"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "actor",
+      "to": "web",
+      "y": 170,
+      "label": "OpenApp",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m2",
+      "from": "actor",
+      "to": "web",
+      "y": 210,
+      "label": "? PageTitle",
+      "variant": "default",
+      "note": "Terramind — Inteligencia Ambiental …"
+    },
+    {
+      "id": "m3",
+      "from": "web",
+      "to": "actor",
+      "y": 250,
+      "label": "= Terramind — Inteligencia Ambiental AI | Valle de Ab…",
+      "variant": "return"
+    },
+    {
+      "id": "m4",
+      "from": "actor",
+      "to": "web",
+      "y": 290,
+      "label": "? IsVisible canvas",
+      "variant": "default",
+      "note": "true"
+    },
+    {
+      "id": "m5",
+      "from": "web",
+      "to": "actor",
+      "y": 330,
+      "label": "= true",
+      "variant": "return"
+    },
+    {
+      "id": "m6",
+      "from": "actor",
+      "to": "web",
+      "y": 370,
+      "label": "? IsVisible h1, h2, main",
+      "variant": "default",
+      "note": "true"
+    },
+    {
+      "id": "m7",
+      "from": "web",
+      "to": "actor",
+      "y": 410,
+      "label": "= true",
+      "variant": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Recorrido verificado",
+      "items": [
+        "1 tareas ejecutadas (1433 ms en pasos)",
+        "3 preguntas con respuesta visible",
+        "Tres reintentos: sin sleeps fijos en el codigo"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Evidencia real",
+      "items": [
+        "PageTitle = Terramind — Inteligencia Ambiental AI |…",
+        "IsVisible canvas = true",
+        "IsVisible h1, h2, main = true"
+      ]
+    }
+  ]
+}
