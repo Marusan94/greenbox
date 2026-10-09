@@ -15,7 +15,7 @@
     "test:educore": "playwright test tests/educore.spec.ts",
     "test:querylands": "playwright test tests/querylands.spec.ts",
     "test:serenity": "playwright test --config=playwright.serenity.config.ts",
-    "test:serenity:report": "serenity-bdd run --destination target/site/serenity",
+    "test:serenity:report": "serenity-bdd run --destination target/site/serenity && node scripts/serenity-skin.js",
     "flow:report": "node scripts/flow-report.js",
     "flow:hub": "node scripts/flow-hub.js",
     "archify:validate": "node -e \"const fs=require('fs');(async()=>{const {validate}=require('./architecture-map/adapter.js');let ok=0,bad=0;for(const f of fs.readdirSync('archify-sequences').filter(x=>x.endsWith('.json'))){const r=await validate('sequence','archify-sequences/'+f);if(r.ok){ok++;}else{bad++;console.log('FAIL '+f);}}console.log('validate '+ok+' ok / '+bad+' fail');})()\"",

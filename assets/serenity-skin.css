@@ -1,0 +1,69 @@
+/* Greenroom QA — capa de estilo propia sobre el reporte Serenity BDD.
+   Las plantillas del jar son cerradas; esto las viste con la consola
+   del hub (midnight + JetBrains Mono + cian). Se inyecta en cada
+   regeneracion via scripts/serenity-skin.js */
+body,
+body.results-page {
+  background: #020617 !important;
+  color: #e5e7eb !important;
+  font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace !important;
+}
+h1, h2, h3, h4, .title, .page-title {
+  color: #fff !important;
+  font-family: "JetBrains Mono", ui-monospace, monospace !important;
+}
+a { color: #22d3ee !important; }
+a:hover { color: #a5f3fc !important; }
+.card, .panel, .x_panel, .test-results, .results-table,
+.container-fluid, .tab-content, .summary {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #e5e7eb !important;
+}
+table, .table, .dataTable {
+  background-color: #0f172a !important;
+  color: #e5e7eb !important;
+}
+table th, .table th {
+  background-color: #020617 !important;
+  color: #94a3b8 !important;
+  border-color: #1e293b !important;
+}
+table td, .table td { border-color: #1e293b !important; }
+.nav-tabs .nav-link, .nav-pills .nav-link { color: #94a3b8 !important; }
+/* Serenity usa tabs Bootstrap 3: li.active > a */
+.nav-tabs > li > a {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: #94a3b8 !important;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  border-bottom-color: #0f172a !important;
+  color: #22d3ee !important;
+}
+.nav-tabs .nav-link.active, .nav-pills .nav-link.active {
+  background-color: #0f172a !important;
+  color: #22d3ee !important;
+  border-color: #1e293b !important;
+}
+.badge, .label { font-family: "JetBrains Mono", monospace !important; }
+.success-icon, .fa-check-circle, .success { color: #34d399 !important; }
+.failure-icon, .fa-times-circle, .failure, .error { color: #fb7185 !important; }
+.pending-icon, .skipped-icon { color: #fbbf24 !important; }
+/* Migas + cabecera del reporte */
+.breadcrumbs, .breadcrumbs a, .date-and-time { color: #94a3b8 !important; }
+#topheader, .navbar, .top_nav {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+/* Bandas del dashboard clásico (fondo beige original) */
+.middlb, .table, .test-count-summary, .test-count-title,
+table.overview, table.overview td, table.overview th,
+#results-dashboard, #beforetable, .clr {
+  background-color: #020617 !important;
+  background-image: none !important;
+  color: #e5e7eb !important;
+  border-color: #1e293b !important;
+}
