@@ -1,4 +1,4 @@
-name: qa-screenplay
+name: qa-automation-lab
 on:
   push:
   workflow_dispatch:
