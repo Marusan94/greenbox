@@ -3,6 +3,7 @@ import type { Actor, Task } from './actor';
 // OpenApp: abre la baseURL del project. Reutilizable en los 4 sitios.
 export const OpenApp = {
   now: (): Task => ({
+    label: 'OpenApp',
     async performAs(actor: Actor) {
       await actor.browse.goto('/');
     },
@@ -13,6 +14,7 @@ export const OpenApp = {
 // Si el sitio no tiene buscador, el spec debe cambiar el escenario (no inventar selectores).
 export const SearchFor = {
   text: (value: string): Task => ({
+    label: `SearchFor "${value}"`,
     async performAs(actor: Actor) {
       const page = actor.browse;
       const box = page.getByRole('searchbox').or(page.getByPlaceholder(/buscar|search/i)).first();
@@ -25,6 +27,7 @@ export const SearchFor = {
 // NavigateToTab: clica una pestaña/enlace por nombre accesible y espera que cargue.
 export const NavigateToTab = {
   named: (label: string | RegExp): Task => ({
+    label: `NavigateToTab ${String(label)}`,
     async performAs(actor: Actor) {
       const page = actor.browse;
       // rol primero, nombre despues: Playwright exige rol literal, el regex va en hasText

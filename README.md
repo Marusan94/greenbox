@@ -1,6 +1,6 @@
-# QA Automation Lab — Automatización de pruebas con Playwright + Screenplay sobre 4 proyectos reales
+# 🎭 Greenroom QA — Automatización de pruebas con Playwright + Screenplay sobre 4 proyectos reales
 
-Portafolio práctico de **Analista QA con automatización**: suites smoke y regresión con **Playwright** y el **patrón Screenplay**, ejecutadas contra 4 aplicaciones reales desplegadas de [Marusan94](https://github.com/Marusan94) (Terramind, Pulso GitHub, Query Lands/LAB.CORE y EDU.CORE). Todo lo afirmado aquí está ejecutado; lo pendiente está declarado como tal.
+*El camerino donde los actores ensayan antes de salir a escena.* Portafolio práctico de **Analista QA con automatización**: suites smoke y regresión con **Playwright** y el **patrón Screenplay**, ejecutadas contra 4 aplicaciones reales desplegadas de [Marusan94](https://github.com/Marusan94) (Terramind, Pulso GitHub, Query Lands/LAB.CORE y EDU.CORE). Todo lo afirmado aquí está ejecutado; lo pendiente está declarado como tal.
 
 ## 1. Cobertura frente a una oferta real de Analista QA (Medellín/Bogotá)
 
@@ -8,21 +8,19 @@ Portafolio práctico de **Analista QA con automatización**: suites smoke y regr
 |---|---|---|
 | Playwright (no negociable) | Suites E2E en Chromium, `playwright.config.ts` (projects por sitio, `trace: retain-on-failure`, reporte HTML, `workers: 1`) | ✅ Verificado |
 | Patrón Screenplay (no negociable) | Núcleo `src/core/`: `Actor` + habilidad `BrowseTheWeb`, `Task` (`OpenApp`, `SearchFor`, `NavigateToTab`), `Question` (`PageTitle`, `IsVisible`, `CountOf`) reutilizados en las 4 suites | ✅ Verificado |
-| POM y otros patrones | Comparativa POM vs Screenplay con ejemplo real del repo (sección 3) | ✅ Verificado |
+| POM y otros patrones | Comparativa POM vs Screenplay con ejemplo real del repo (sección 4) | ✅ Verificado |
 | Smoke + regresión | Tags `@smoke` / `@regression`; `npm run test:smoke` (push) y `test:regression` (cron nocturno en CI) | ✅ Verificado |
 | Caja negra (equivalencia, límites) | Login válido/inválido (equivalencia), password < 6 caracteres (valor límite), tablas con conteo > 0 | ✅ Verificado |
-| Pruebas de APIs (GET/POST/PUT, env, status) | URLs y secretos por variables de entorno (`.env.example`); suites de API con Karate | 🗺️ Roadmap (siguiente fase) |
-| Karate | — | 🗺️ Roadmap |
-| AWS básico | — | 🗺️ Roadmap (publicar reportes en S3) |
-| No funcionales (rendimiento, accesibilidad) | — | 🗺️ Roadmap (k6 + axe-core) |
-| Gestión de defectos, métricas, riesgos | Sección 5: 3 defectos reales con severidad + métricas de ejecución | ✅ Verificado |
+| Gestión de defectos, métricas, riesgos | Sección 7: 3 defectos reales con severidad + métricas de ejecución | ✅ Verificado |
 | Scrum / Kanban / híbrido | Entrega por iteraciones cortas con gates verificables (typecheck → tests → commit por avance) | ✅ Verificado |
 
 ## 2. Arquitectura
 
 ```
-qa-automation-lab/
+greenroom-qa/
 ├── src/core/          # Patrón Screenplay: actor.ts, tasks.ts, questions.ts
+├── src/flow/          # Módulo Flow: recorder.ts (graba cada paso Actor->Task->Página)
+├── scripts/           # flow-report.js (dibuja el flujo como historia visual)
 ├── tests/             # 1 suite por proyecto (terramind, pulso, querylands, educore)
 ├── .github/workflows/ # CI: matriz por proyecto (smoke en push, regresión en cron)
 ├── playwright.config.ts  # 1 project por sitio, baseURL por env, trace en fallos
@@ -30,16 +28,27 @@ qa-automation-lab/
 └── .env.example       # URLs y secretos (nunca credenciales en el repo)
 ```
 
-Flujo: ** película ** — el *Actor* (Santiago, el visitante) ejecuta *Tasks* con su *Ability* (`BrowseTheWeb` = la página de Playwright) y comprueba *Questions*. Los specs solo orquestan intención de negocio; ningún selector vive en la prueba.
+Flujo: el *Actor* (Santiago, el visitante) ejecuta *Tasks* con su *Ability* (`BrowseTheWeb` = la página de Playwright) y comprueba *Questions*. Los specs solo orquestan intención de negocio; ningún selector vive en la prueba.
 
-## 3. Cómo se compone Screenplay (para defenderlo en entrevista)
+## 3. Módulo Flow: ver cada prueba como historia 🎬
+
+¿Se puede *ver* el flujo de una prueba Screenplay? Sí: el `Actor` graba solo cada Task (con su duración real) y cada Question (con su respuesta) en `flow/<prueba>.json`, y `npm run flow:report` los dibuja como **diagramas de secuencia** en `flow-report/index.html` (autocontenido, sin dependencias): Santiago → Tareas → Página, con flechas, tiempos y respuestas, más tabla paso a paso.
+
+```bash
+npx playwright test          # graba el flujo de cada prueba en flow/
+npm run flow:report          # dibuja flow-report/index.html
+```
+
+Úsalo para depurar ("¿qué paso tardó 20 s?"), para mostrarle a alguien no técnico qué hace la suite, y para defender el patrón en entrevista con evidencia visual.
+
+## 4. Cómo se compone Screenplay (para defenderlo en entrevista)
 
 - **Actor**: quién actúa (`Actor.named('Santiago', page)` en `src/core/actor.ts`).
 - **Ability**: con qué puede actuar (`BrowseTheWeb` = la `Page` de Playwright que recibe el actor).
 - **Task**: acción de negocio reutilizable (`OpenApp`, `SearchFor`, `NavigateToTab` en `src/core/tasks.ts`).
 - **Question**: lectura verificable (`PageTitle`, `IsVisible`, `CountOf` en `src/core/questions.ts`).
 
-## 4. POM vs Screenplay, mismo escenario (Pulso: "la tabla muestra repositorios")
+## 5. POM vs Screenplay, mismo escenario (Pulso: "la tabla muestra repositorios")
 
 ```ts
 // POM: el test conoce páginas y selectores
@@ -48,14 +57,14 @@ const rows = await page.locator('table tbody tr, article, li').count();
 expect(rows).toBeGreaterThan(0);
 
 // Screenplay (este repo): el test declara intención, el CÓMO vive en piezas reutilizables
-await page.goto(PULSO_APP); // OpenApp no sirve aquí: la app es un .html concreto, ver sección 6
+await page.goto(PULSO_APP); // OpenApp no sirve aquí: la app es un .html concreto, ver sección 8
 const rows = await santiago.asks(CountOf.elements('table tbody tr, article, li'));
 expect(rows).toBeGreaterThan(0);
 ```
 
 **Cuándo conviene cada uno:** POM para smoke simple de 1 página (menos código); Screenplay cuando el flujo cruza pasos/pestañas y las Tasks se reutilizan entre suites — el spec queda legible para no-técnicos y el mantenimiento se concentra en un solo lugar.
 
-## 5. Cómo ejecutar
+## 6. Cómo ejecutar
 
 ```bash
 npm install --legacy-peer-deps
@@ -65,11 +74,12 @@ npm test                        # todo (8 pasan, 4 skip, 0 fallan)
 npm run test:smoke               # solo @smoke (lo que corre en cada push)
 npm run test:regression          # solo @regression (lo que corre de noche)
 npm run test:terramind | test:pulso | test:educore | test:querylands
+npm run flow:report              # dibuja el flujo visual de la última corrida
 ```
 
 URLs por variables (`TERRAMIND_URL`, `PULSO_URL`, `QUERYLANDS_URL`, `EDUCORE_URL`); ver `.env.example`. CI (`ci.yml`): matriz por proyecto en push/manual con `@smoke`, regresión `@regression` en cron nocturno (3:00 UTC), reporte por proyecto como artefacto.
 
-## 6. Métricas reales (última ejecución: 2026-10-08)
+## 7. Métricas reales (última ejecución: 2026-10-08)
 
 | Proyecto | Resultado | Nota |
 |---|---|---|
@@ -80,15 +90,14 @@ URLs por variables (`TERRAMIND_URL`, `PULSO_URL`, `QUERYLANDS_URL`, `EDUCORE_URL
 
 Reglas anti-flakiness aplicadas: esperas con reintento en vez de `count()` puntual (un `count()==0` confunde "lento" con "ausente"), nada de `sleep` fijos, validación de estructura y no de valores en datos en vivo (SIATA, GitHub API), `workers: 1` para no saturar capas gratuitas.
 
-## 7. Defectos reales encontrados (gestión de defectos)
+## 8. Defectos reales encontrados (gestión de defectos)
 
 1. **Pulso: URL raíz devuelve 404** (Severidad media). La app vive en `02-midnight-console.html`, no en el root de Pages. Evidencia: screenshot + `curl 200` vs `goto('/')` al dominio. Estado: mitigado en suite (navegación a URL completa). Recomendación: landing en `index.html`.
 2. **Terramind: panel RAG cierra la página en Chromium headless** (Severidad media-baja, solo automatización). Repro: abrir RAG + `waitFor` del textarea → `Target page has been closed`, incluso con `--disable-gpu`. En manual funciona. Estado: skip documentado, pendiente estabilizar.
-3. **EDU.CORE: login nuevo sin desplegar** (Severidad baja, proceso). Push `968690e` con la nueva UI comercial; Render seguía sirviendo la build vieja al verificar. Estado: suite lista con selectores exactos, a la espera del redeploy.
+3. **EDU.CORE: login nuevo sin desplegar** (Severidad baja, proceso). Push con la nueva UI comercial; Render seguía sirviendo la build vieja al verificar. Estado: suite lista con selectores exactos, a la espera del redeploy.
 
-## 8. Limitaciones honestas y roadmap
+## 9. Notas honestas
 
 - `goto('/')` ignora la ruta de una `baseURL` que apunta a un archivo (Pulso): se navega a la URL completa.
-- Sin reporte Serenity BDD: se usa el HTML de Playwright (más rápido de generar; paquetes `@serenity-js/*@3.48.1` instalados y fijados).
+- Sin reporte Serenity BDD: el módulo Flow + el HTML de Playwright cubren la evidencia visual (paquetes `@serenity-js/*@3.48.1` instalados y fijados).
 - Login válido de EDU.CORE requiere `EDUCORE_USER`/`EDUCORE_PASS` y queda en `skip` sin ellas.
-- **Roadmap:** suites de API con Karate (GET/POST/PUT + status + tiempos), k6 + axe-core (no funcionales), publicación de reportes en S3 (AWS), Page Objects paralelos para comparativa POM completa.

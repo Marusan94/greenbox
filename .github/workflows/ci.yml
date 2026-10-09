@@ -1,4 +1,4 @@
-name: qa-automation-lab
+name: greenroom-qa
 on:
   push:
   workflow_dispatch:
