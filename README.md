@@ -1,6 +1,20 @@
 # 🎭 Greenroom QA — Automatización de pruebas con Playwright + Screenplay sobre 4 proyectos reales
 
+[![CI](https://github.com/Marusan94/greenroom-qa/actions/workflows/ci.yml/badge.svg)](https://github.com/Marusan94/greenroom-qa/actions)
+![Playwright](https://img.shields.io/badge/Playwright-1.64-45ba4b)
+![Serenity/JS](https://img.shields.io/badge/Serenity%2FJS-3.48-7c3aed)
+![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178c6)
+![Tests](https://img.shields.io/badge/tests-8%20verdes%20%C2%B7%204%20skip%20%C2%B7%200%20fallos-brightgreen)
+
 *El camerino donde los actores ensayan antes de salir a escena.* Portafolio práctico de **Analista QA con automatización**: suites smoke y regresión con **Playwright** y el **patrón Screenplay**, ejecutadas contra 4 aplicaciones reales desplegadas de [Marusan94](https://github.com/Marusan94) (Terramind, Pulso GitHub, Query Lands/LAB.CORE y EDU.CORE). Todo lo afirmado aquí está ejecutado; lo pendiente está declarado como tal.
+
+## Hub de reportes (generados localmente)
+
+![Hub con el mapa del sistema](docs/img/hub.png)
+
+`npm test && npm run flow:report && npm run flow:hub` genera `flow-report/hub.html`: barra lateral con el mapa del sistema, las historias Flow, las 9 secuencias del visor oficial y los reportes Playwright/Serenity.
+
+![Mapa del sistema en visor Archify](docs/img/system.png)
 
 ## 1. Cobertura frente a una oferta real de Analista QA (Medellín/Bogotá)
 
