@@ -10,7 +10,7 @@ const { chromium } = require('@playwright/test');
     if (m.type() === 'error') out.errors.push(m.text().slice(0, 200));
   });
   page.on('pageerror', (e) => out.errors.push(String(e).slice(0, 200)));
-  await page.goto('file:///C:/Users/USUARIO/greenroom-qa/flow-report/index.html');
+  await page.goto('file:///C:/Users/USUARIO/greenbox/flow-report/index.html');
   await page.waitForTimeout(800);
   out.checks.chapters = await page.locator('.chap').count();
   out.checks.beats = await page.evaluate(() => document.querySelectorAll('.node').count ?? document.querySelectorAll('.node').length);

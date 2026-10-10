@@ -1,10 +1,10 @@
 # El estándar Screenplay aplicado a mis 4 proyectos
 
->unas 1000 palabras por proyecto · repo `greenroom-qa` · verificado contra el código real
+>unas 1000 palabras por proyecto · repo `greenbox` · verificado contra el código real
 
 ## El estándar (vale para los 4)
 
-Screenplay es un patrón de automatización donde las pruebas se escriben como una obra: un **Actor** (quién) con una **Ability** (con qué puede actuar, aquí `BrowseTheWeb` = la página de Playwright) ejecuta **Tasks** (acciones de negocio reutilizables: *abrir, buscar, navegar*) y formula **Questions** (lecturas verificables: *¿se ve? ¿cuántos hay? ¿qué dice?*). Los selectores viven en **Page Elements**, nunca en la prueba. Reglas del estándar: el spec solo orquesta intención de negocio; cada Task/Question tiene un nombre que se entiende sin leer su código; lo que se repite en 2 pruebas se convierte en Task; lo que se afirma se convierte en Question; los datos vivos se validan por estructura, nunca por valor exacto. En `greenroom-qa` el núcleo vive en `src/core/` (`actor.ts`, `tasks.ts`, `questions.ts`) y cada suite lo reutiliza. Dicho esto, cada proyecto merece su propio elenco.
+Screenplay es un patrón de automatización donde las pruebas se escriben como una obra: un **Actor** (quién) con una **Ability** (con qué puede actuar, aquí `BrowseTheWeb` = la página de Playwright) ejecuta **Tasks** (acciones de negocio reutilizables: *abrir, buscar, navegar*) y formula **Questions** (lecturas verificables: *¿se ve? ¿cuántos hay? ¿qué dice?*). Los selectores viven en **Page Elements**, nunca en la prueba. Reglas del estándar: el spec solo orquesta intención de negocio; cada Task/Question tiene un nombre que se entiende sin leer su código; lo que se repite en 2 pruebas se convierte en Task; lo que se afirma se convierte en Question; los datos vivos se validan por estructura, nunca por valor exacto. En `greenbox` el núcleo vive en `src/core/` (`actor.ts`, `tasks.ts`, `questions.ts`) y cada suite lo reutiliza. Dicho esto, cada proyecto merece su propio elenco.
 
 ---
 

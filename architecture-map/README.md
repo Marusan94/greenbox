@@ -7,7 +7,7 @@
 - Trae vistas guiadas, modo presentación y exportación. Licencia MIT.
 - Motor oficial en `ARCHIFY_CLI` (defecto: skill instalado); **este módulo es un adaptador, no una copia**.
 
-## 2. Cómo encaja con greenroom-qa
+## 2. Cómo encaja con greenbox
 
 Las vistas guiadas ya son un guion: cada vista es una **escena** y cada mensaje un **beat**.
 

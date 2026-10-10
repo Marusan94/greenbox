@@ -31,7 +31,7 @@ function main() {
 
   const html =
     '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<title>Greenroom QA — Hub</title>' +
+    '<title>Greenbox — Hub</title>' +
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">' +
     '<style>' +
     '*{box-sizing:border-box}html,body{height:100%}body{margin:0;display:flex;font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:#020617;color:#fff;font-size:.75rem}' +
@@ -64,7 +64,7 @@ function main() {
     'main{flex:1;height:100vh;background:#020617}iframe{width:100%;height:100%;border:0;background:#020617;transition:opacity .28s ease,transform .28s ease}' +
     'iframe.switching{opacity:0;transform:translateY(8px)}' +
     '</style></head><body>' +
-    '<aside><div class="brand"><h1><span class="tdot"></span>Greenroom QA<span class="signal">HUB</span></h1><p class="sub">Actor → Tasks → Page · ' + today + '</p></div>' +
+    '<aside><div class="brand"><h1><span class="tdot"></span>Greenbox<span class="signal">HUB</span></h1><p class="sub">Actor → Tasks → Page · ' + today + '</p></div>' +
     '<div class="tbar"><button class="tbtn" id="hubTheme">◐ <span id="hubThemeV">Dark</span></button>' +
     '<div style="position:relative;flex:1;display:flex"><button class="tbtn" id="hubFlow" style="flex:1">Flow ▾</button><div class="tmenu" id="hubFlowMenu">' +
     '<button data-p="classic" class="sel">Classic</button><button data-p="signal">Signal Flow</button><button data-p="blueprint">Blueprint</button><button data-p="editorial">Editorial</button></div></div></div>' +

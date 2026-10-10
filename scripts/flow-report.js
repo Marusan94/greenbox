@@ -270,7 +270,7 @@ function main() {
   );
 
   const html = '<!doctype html><html lang="es" data-theme="dark" data-preset="classic"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<title>Greenroom QA — Flow</title>' +
+    '<title>Greenbox — Flow</title>' +
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">' +
     '<style>' +
     ':root{--bg1:#f4f5fa;--bg2:#e8eaf3;--panel:#ffffff;--ink:#111827;--muted:#6b7280;--dim:#9ca3af;--border:#e2e5ee;--teal:#0d9488;--green:#16a34a;--violet:#9333ea;--amber:#b45309;--slate:#64748b;--red:#dc2626;--dots:#e3e6f0;--chipbg:#111827;}' +
@@ -345,7 +345,7 @@ function main() {
     'body.present{max-width:1400px}' +
     '@media print{.pills,.guide,.zoombar,.overview,.chapcard{display:none}body{background:#fff}}' +
     '</style></head><body>' +
-    '<header class="top"><div><h1><span class="tdot"></span>Greenroom QA — Flow<span class="signal">SCREENPLAY FLOW</span></h1>' +
+    '<header class="top"><div><h1><span class="tdot"></span>Greenbox — Flow<span class="signal">SCREENPLAY FLOW</span></h1>' +
     '<p class="sub">Data flow: Actor → Tasks → Page · ' + tests.length + ' pruebas · ' + totalT + ' tareas · ' + totalQ + ' preguntas · ' + today + '</p></div>' +
     '<div class="pills"><button class="pill" id="themeBtn">◐ Theme</button>' +
     '<div class="pop"><button class="pill" id="flowBtn"><span class="d"></span>Flow ▾</button><div class="menu" id="flowMenu">' +
@@ -412,7 +412,7 @@ function main() {
     'if(still){var i=(bi+1)%beats.length;show(i);return;}' +
     'q("#playBtn").textContent="⏸ Pause";var i2=(bi+1)%beats.length;show(i2);' +
     'timer=setInterval(function(){i2=(i2+1)%beats.length;show(i2);},1600);};' +
-    'q("#copyBtn").onclick=function(){var t=bi>=0?beats[bi].label:chap;var s="Greenroom QA — "+t+" · "+location.href.split("?")[0];if(navigator.clipboard)navigator.clipboard.writeText(s);q("#beat").textContent="Momento copiado: "+t;};' +
+    'q("#copyBtn").onclick=function(){var t=bi>=0?beats[bi].label:chap;var s="Greenbox — "+t+" · "+location.href.split("?")[0];if(navigator.clipboard)navigator.clipboard.writeText(s);q("#beat").textContent="Momento copiado: "+t;};' +
     'qa(".chap").forEach(function(c){c.addEventListener("click",function(){stop();var s=openSec(c.getAttribute("data-sec"));if(s)s.scrollIntoView({behavior:"smooth",block:"center"});' +
     'setChap(c.getAttribute("data-title"),c.getAttribute("data-stops"));});});' +
     '});</script></body></html>';

@@ -1,12 +1,12 @@
-# 🎭 Greenroom QA — Automatización de pruebas con Playwright + Screenplay sobre 4 proyectos reales
+# ✅ Greenbox — Automatización de pruebas con Playwright + Screenplay sobre 4 proyectos reales
 
-[![CI](https://github.com/Marusan94/greenroom-qa/actions/workflows/ci.yml/badge.svg)](https://github.com/Marusan94/greenroom-qa/actions)
+[![CI](https://github.com/Marusan94/greenbox/actions/workflows/ci.yml/badge.svg)](https://github.com/Marusan94/greenbox/actions)
 ![Playwright](https://img.shields.io/badge/Playwright-1.64-45ba4b)
 ![Serenity/JS](https://img.shields.io/badge/Serenity%2FJS-3.48-7c3aed)
 ![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178c6)
-![Tests](https://img.shields.io/badge/tests-8%20verdes%20%C2%B7%204%20skip%20%C2%B7%200%20fallos-brightgreen)
+![Tests](https://img.shields.io/badge/tests-10%20verdes%20%C2%B7%204%20skip%20%C2%B7%200%20fallos-brightgreen)
 
-*El camerino donde los actores ensayan antes de salir a escena.* Portafolio práctico de **Analista QA con automatización**: suites smoke y regresión con **Playwright** y el **patrón Screenplay**, ejecutadas contra 4 aplicaciones reales desplegadas de [Marusan94](https://github.com/Marusan94) (Terramind, Pulso GitHub, Query Lands/LAB.CORE y EDU.CORE). Todo lo afirmado aquí está ejecutado; lo pendiente está declarado como tal.
+*La caja verde: si todo está en verde, se publica.* Portafolio práctico de **Analista QA con automatización**: suites smoke y regresión con **Playwright** y el **patrón Screenplay**, ejecutadas contra 4 aplicaciones reales desplegadas de [Marusan94](https://github.com/Marusan94) (Terramind, Pulso GitHub, Query Lands/LAB.CORE y EDU.CORE). Todo lo afirmado aquí está ejecutado; lo pendiente está declarado como tal.
 
 ## Hub de reportes (generados localmente)
 
@@ -35,7 +35,7 @@
 ## 2. Arquitectura
 
 ```
-greenroom-qa/
+greenbox/
 ├── src/core/          # Patrón Screenplay: actor.ts, tasks.ts, questions.ts
 ├── src/flow/          # Módulo Flow: recorder.ts (graba cada paso Actor->Task->Página)
 ├── scripts/           # flow-report.js (dibuja el flujo como historia visual)
@@ -88,7 +88,7 @@ expect(rows).toBeGreaterThan(0);
 npm install --legacy-peer-deps
 npx playwright install chromium
 npm run typecheck
-npm test                        # todo (8 pasan, 4 skip, 0 fallan)
+npm test                        # todo (10 pasan, 4 skip, 0 fallan)
 npm run test:smoke               # solo @smoke (lo que corre en cada push)
 npm run test:regression          # solo @regression (lo que corre de noche)
 npm run test:serenity               # suite oficial Serenity/JS (Pulso, runner + actor de la librería)

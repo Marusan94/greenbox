@@ -2,7 +2,7 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Greenroom QA — mapa del sistema",
+    "title": "Greenbox — mapa del sistema",
     "output": "flow-report/archify/system.html",
     "quality_profile": "showcase",
     "viewBox": [1240, 700],
@@ -48,7 +48,7 @@
   ],
   "cards": [
     { "dot": "cyan", "title": "Screenplay en una frase", "items": ["Santiago intenta Tasks y hace Questions", "Ningun selector vive en la prueba", "Las Tasks se reutilizan en 4 suites"] },
-    { "dot": "emerald", "title": "Evidencia real", "items": ["flow/*.json versionado con cada corrida", "8 pasan, 4 skip honestos, 0 fallan", "Sin sleeps fijos: esperas con reintento"] },
+    { "dot": "emerald", "title": "Evidencia real", "items": ["flow/*.json versionado con cada corrida", "10 pasan, 4 skip honestos, 0 fallan", "Sin sleeps fijos: esperas con reintento"] },
     { "dot": "orange", "title": "Capas del flujo", "items": ["Actor → Tasks → Pagina → Evidencia", "El modulo adapter no copia el renderer", "Las vistas guiadas ya son el guion"] }
   ]
 }
