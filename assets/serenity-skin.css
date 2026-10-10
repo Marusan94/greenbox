@@ -3,11 +3,19 @@
    del hub (midnight + JetBrains Mono + cian). Se inyecta en cada
    regeneracion via scripts/serenity-skin.js. Tema por ?theme=dark|light
    (defecto dark); el hub lo propaga globalmente. */
+/* Proporcion: el reporte Serenity es ancho; se escala para encajar en el
+   iframe del hub sin desbordar. */
 body,
 body.results-page {
   background: #020617 !important;
   color: #e5e7eb !important;
   font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  zoom: 0.82;
+}
+h1, h2, h3, h4, .title, .page-title {
+  font-size: 1.15em !important;
 }
 h1, h2, h3, h4, .title, .page-title {
   color: #fff !important;
