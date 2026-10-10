@@ -1,7 +1,8 @@
 /* Greenbox — capa de estilo propia sobre el reporte Serenity BDD.
    Las plantillas del jar son cerradas; esto las viste con la consola
    del hub (midnight + JetBrains Mono + cian). Se inyecta en cada
-   regeneracion via scripts/serenity-skin.js */
+   regeneracion via scripts/serenity-skin.js. Tema por ?theme=dark|light
+   (defecto dark); el hub lo propaga globalmente. */
 body,
 body.results-page {
   background: #020617 !important;
@@ -43,6 +44,80 @@ table td, .table td { border-color: #1e293b !important; }
   border-bottom-color: #0f172a !important;
   color: #22d3ee !important;
 }
+/* Píldora de estado del hub: mismo lenguaje (SIGNAL FLOW) */
+body::before {
+  content: "SCREENPLAY FLOW · SERENITY BDD";
+  display: inline-block;
+  border: 1.5px solid #22d3ee;
+  color: #22d3ee;
+  border-radius: 999px;
+  padding: 3px 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 14px 0 0 18px;
+  font-family: "JetBrains Mono", monospace;
+}
+/* Tema claro global (?theme=light): paridad con el front */
+html[data-theme="light"] * { background-image: none !important; }
+html[data-theme="light"] body,
+html[data-theme="light"] body.results-page {
+  background: #f4f5fa !important;
+  color: #111827 !important;
+}
+html[data-theme="light"] h1, html[data-theme="light"] h2,
+html[data-theme="light"] h3, html[data-theme="light"] h4 {
+  color: #111827 !important;
+}
+html[data-theme="light"] a { color: #0d9488 !important; }
+html[data-theme="light"] .card, html[data-theme="light"] .panel,
+html[data-theme="light"] .x_panel, html[data-theme="light"] .test-results,
+html[data-theme="light"] .container-fluid, html[data-theme="light"] .tab-content,
+html[data-theme="light"] .summary, html[data-theme="light"] .middlb,
+html[data-theme="light"] .table, html[data-theme="light"] .test-count-summary,
+html[data-theme="light"] .test-count-title, html[data-theme="light"] table.overview,
+html[data-theme="light"] #results-dashboard,
+html[data-theme="light"] .nav-tabs > li.active > a {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border-color: #e2e5ee !important;
+}
+html[data-theme="light"] table, html[data-theme="light"] .table,
+html[data-theme="light"] .dataTable { background-color: #ffffff !important; color: #111827 !important; }
+/* Las celdas y el separador heredan el fondo oscuro de la regla de bandas
+   (table.overview td, mas especifica y al final del archivo). Se anulan con
+   una specificity mayor para que aflore el blanco del contenedor. */
+html[data-theme="light"] body td,
+html[data-theme="light"] body th,
+html[data-theme="light"] body table.overview td,
+html[data-theme="light"] body table.overview th,
+html[data-theme="light"] body .table td,
+html[data-theme="light"] body #beforetable,
+html[data-theme="light"] body .clr {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: #111827 !important;
+  border-color: #e2e5ee !important;
+}
+html[data-theme="light"] table th, html[data-theme="light"] .table th {
+  background-color: #f8fafc !important;
+  color: #64748b !important;
+}
+html[data-theme="light"] .nav-tabs > li > a { color: #64748b !important; }
+html[data-theme="light"] ul.nav-tabs, html[data-theme="light"] ul.nav,
+html[data-theme="light"] ul.nav-tabs > li, html[data-theme="light"] ul.nav > li {
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: #e2e5ee !important;
+}
+html[data-theme="light"] .nav-tabs > li > a {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+html[data-theme="light"] .nav-tabs > li.active > a { color: #0d9488 !important; border-bottom-color: #ffffff !important; }
+html[data-theme="light"] #topheader, html[data-theme="light"] .navbar, html[data-theme="light"] .top_nav {
+  background-color: #ffffff !important;
+}
 .nav-tabs .nav-link.active, .nav-pills .nav-link.active {
   background-color: #0f172a !important;
   color: #22d3ee !important;
@@ -66,4 +141,453 @@ table.overview, table.overview td, table.overview th,
   background-image: none !important;
   color: #e5e7eb !important;
   border-color: #1e293b !important;
+}
+
+/* =====================================================================
+   Presets globales del hub (Classic / Signal Flow / Blueprint / Editorial)
+   El hub los propaga por ?preset=; Serenity los hereda para paridad
+   visual con Flow y las vistas Archify. Classic = sin reglas extra.
+   Cada preset redefine el esquema completo: fondo, paneles, texto,
+   acentos, tipografia y bordes.
+   ===================================================================== */
+
+/* ============================ SIGNAL FLOW ============================
+   Movimiento-forward: glow cian/violeta sobre azul profundo.
+   ===================================================================== */
+html[data-preset="signal"] body,
+html[data-preset="signal"] body.results-page {
+  background-color: #030711 !important;
+  background-image:
+    radial-gradient(circle at 18% -8%, rgba(34, 211, 238, 0.28), transparent 55rem),
+    radial-gradient(circle at 92% 12%, rgba(139, 92, 246, 0.22), transparent 50rem) !important;
+  background-attachment: fixed;
+  color: #f5fbff !important;
+}
+html[data-preset="signal"] h1, html[data-preset="signal"] h2,
+html[data-preset="signal"] h3, html[data-preset="signal"] h4,
+html[data-preset="signal"] .title, html[data-preset="signal"] .page-title {
+  color: #f5fbff !important;
+  text-shadow: 0 0 28px rgba(34, 211, 238, 0.65) !important;
+}
+html[data-preset="signal"] a { color: #22d3ee !important; }
+html[data-preset="signal"] a:hover { color: #a5f3fc !important; }
+html[data-preset="signal"] .card, html[data-preset="signal"] .panel,
+html[data-preset="signal"] .x_panel, html[data-preset="signal"] .test-results,
+html[data-preset="signal"] .results-table, html[data-preset="signal"] .container-fluid,
+html[data-preset="signal"] .tab-content, html[data-preset="signal"] .summary {
+  background-color: rgba(6, 14, 28, 0.88) !important;
+  border-color: #1d3350 !important;
+  color: #f5fbff !important;
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.18), 0 24px 70px rgba(3, 7, 17, 0.75) !important;
+}
+html[data-preset="signal"] table, html[data-preset="signal"] .table,
+html[data-preset="signal"] .dataTable {
+  background-color: rgba(6, 14, 28, 0.88) !important;
+  color: #f5fbff !important;
+}
+html[data-preset="signal"] table th, html[data-preset="signal"] .table th {
+  background-color: #0a1628 !important;
+  color: #9eb0c7 !important;
+  border-color: #1d3350 !important;
+}
+html[data-preset="signal"] table td, html[data-preset="signal"] .table td {
+  border-color: #1d3350 !important;
+}
+html[data-preset="signal"] .nav-tabs > li > a { color: #9eb0c7 !important; }
+html[data-preset="signal"] .nav-tabs > li.active > a,
+html[data-preset="signal"] .nav-tabs > li.active > a:hover {
+  background-color: rgba(34, 211, 238, 0.14) !important;
+  border-color: #22d3ee !important;
+  border-bottom-color: rgba(34, 211, 238, 0.14) !important;
+  color: #22d3ee !important;
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.35) !important;
+}
+html[data-preset="signal"] .middlb, html[data-preset="signal"] .table,
+html[data-preset="signal"] .test-count-summary, html[data-preset="signal"] .test-count-title,
+html[data-preset="signal"] table.overview, html[data-preset="signal"] table.overview td,
+html[data-preset="signal"] table.overview th, html[data-preset="signal"] #results-dashboard,
+html[data-preset="signal"] #beforetable, html[data-preset="signal"] .clr {
+  background-color: #0a1628 !important;
+  border-color: #1d3350 !important;
+  color: #f5fbff !important;
+}
+html[data-preset="signal"] #topheader, html[data-preset="signal"] .navbar,
+html[data-preset="signal"] .top_nav {
+  background-color: #0a1628 !important;
+  border-color: #1d3350 !important;
+}
+html[data-preset="signal"] .breadcrumbs, html[data-preset="signal"] .breadcrumbs a,
+html[data-preset="signal"] .date-and-time { color: #9eb0c7 !important; }
+html[data-preset="signal"] body::before {
+  background: rgba(34, 211, 238, 0.10) !important;
+  border-color: #22d3ee !important;
+  color: #22d3ee !important;
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.55) !important;
+}
+/* Signal — light */
+html[data-theme="light"][data-preset="signal"] body,
+html[data-theme="light"][data-preset="signal"] body.results-page {
+  background-color: #f4f9fc !important;
+  background-image:
+    radial-gradient(circle at 18% -8%, rgba(6, 182, 212, 0.20), transparent 55rem),
+    radial-gradient(circle at 92% 12%, rgba(139, 92, 246, 0.14), transparent 50rem) !important;
+  color: #102638 !important;
+}
+html[data-theme="light"][data-preset="signal"] h1,
+html[data-theme="light"][data-preset="signal"] h2,
+html[data-theme="light"][data-preset="signal"] h3,
+html[data-theme="light"][data-preset="signal"] h4 {
+  color: #102638 !important;
+  text-shadow: none !important;
+}
+html[data-theme="light"][data-preset="signal"] a { color: #0d9488 !important; }
+html[data-theme="light"][data-preset="signal"] .card,
+html[data-theme="light"][data-preset="signal"] .panel,
+html[data-theme="light"][data-preset="signal"] .x_panel,
+html[data-theme="light"][data-preset="signal"] .test-results,
+html[data-theme="light"][data-preset="signal"] .results-table,
+html[data-theme="light"][data-preset="signal"] .container-fluid,
+html[data-theme="light"][data-preset="signal"] .tab-content,
+html[data-theme="light"][data-preset="signal"] .summary {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: #bfd5e2 !important;
+  color: #102638 !important;
+  box-shadow: 0 0 0 1px rgba(13, 148, 136, 0.15), 0 16px 44px rgba(16, 38, 56, 0.10) !important;
+}
+html[data-theme="light"][data-preset="signal"] table,
+html[data-theme="light"][data-preset="signal"] .table,
+html[data-theme="light"][data-preset="signal"] .dataTable {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  color: #102638 !important;
+}
+html[data-theme="light"][data-preset="signal"] table th,
+html[data-theme="light"][data-preset="signal"] .table th {
+  background-color: #e8f3f8 !important;
+  color: #587287 !important;
+  border-color: #bfd5e2 !important;
+}
+html[data-theme="light"][data-preset="signal"] table td,
+html[data-theme="light"][data-preset="signal"] .table td {
+  border-color: #bfd5e2 !important;
+}
+html[data-theme="light"][data-preset="signal"] .nav-tabs > li.active > a,
+html[data-theme="light"][data-preset="signal"] .nav-tabs > li.active > a:hover {
+  background-color: rgba(13, 148, 136, 0.12) !important;
+  border-color: #0d9488 !important;
+  border-bottom-color: rgba(13, 148, 136, 0.12) !important;
+  color: #0d9488 !important;
+  box-shadow: 0 0 18px rgba(13, 148, 136, 0.25) !important;
+}
+html[data-theme="light"][data-preset="signal"] .middlb,
+html[data-theme="light"][data-preset="signal"] table.overview,
+html[data-theme="light"][data-preset="signal"] #beforetable,
+html[data-theme="light"][data-preset="signal"] .clr {
+  background-color: #e8f3f8 !important;
+  border-color: #bfd5e2 !important;
+  color: #102638 !important;
+}
+html[data-theme="light"][data-preset="signal"] #topheader,
+html[data-theme="light"][data-preset="signal"] .navbar {
+  background-color: #e8f3f8 !important;
+  border-color: #bfd5e2 !important;
+}
+html[data-theme="light"][data-preset="signal"] body::before {
+  background: rgba(13, 148, 136, 0.08) !important;
+  border-color: #0d9488 !important;
+  color: #0d9488 !important;
+  box-shadow: 0 0 18px rgba(13, 148, 136, 0.35) !important;
+}
+
+/* ============================ BLUEPRINT ==============================
+   Plano tecnico: reticulado azul, esquinas rectas, acento cian.
+   ===================================================================== */
+html[data-preset="blueprint"] *,
+html[data-preset="blueprint"] *::before,
+html[data-preset="blueprint"] *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+html[data-preset="blueprint"] body,
+html[data-preset="blueprint"] body.results-page {
+  background-color: #06131f !important;
+  background-image:
+    linear-gradient(#17425a 1px, transparent 1px),
+    linear-gradient(90deg, #17425a 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+  background-position: -1px -1px !important;
+  background-attachment: fixed !important;
+  color: #e3f6ff !important;
+}
+html[data-preset="blueprint"] h1, html[data-preset="blueprint"] h2,
+html[data-preset="blueprint"] h3, html[data-preset="blueprint"] h4,
+html[data-preset="blueprint"] .title, html[data-preset="blueprint"] .page-title {
+  color: #66d9ef !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+html[data-preset="blueprint"] a { color: #66d9ef !important; }
+html[data-preset="blueprint"] a:hover { color: #a5f3fc !important; }
+html[data-preset="blueprint"] .card, html[data-preset="blueprint"] .panel,
+html[data-preset="blueprint"] .x_panel, html[data-preset="blueprint"] .test-results,
+html[data-preset="blueprint"] .results-table, html[data-preset="blueprint"] .container-fluid,
+html[data-preset="blueprint"] .tab-content, html[data-preset="blueprint"] .summary {
+  background-color: rgba(7, 27, 43, 0.95) !important;
+  border-color: #27627f !important;
+  color: #e3f6ff !important;
+}
+html[data-preset="blueprint"] table, html[data-preset="blueprint"] .table,
+html[data-preset="blueprint"] .dataTable {
+  background-color: rgba(7, 27, 43, 0.95) !important;
+  color: #e3f6ff !important;
+}
+html[data-preset="blueprint"] table th, html[data-preset="blueprint"] .table th {
+  background-color: #0a2031 !important;
+  color: #91b8ca !important;
+  border-color: #27627f !important;
+  border-bottom: 2px dashed #27627f !important;
+}
+html[data-preset="blueprint"] table td, html[data-preset="blueprint"] .table td {
+  border-color: #27627f !important;
+}
+html[data-preset="blueprint"] .nav-tabs > li > a { color: #91b8ca !important; }
+html[data-preset="blueprint"] .nav-tabs > li.active > a,
+html[data-preset="blueprint"] .nav-tabs > li.active > a:hover {
+  background-color: #0a2031 !important;
+  border-color: #27627f !important;
+  border-bottom-color: #0a2031 !important;
+  color: #66d9ef !important;
+}
+html[data-preset="blueprint"] .middlb, html[data-preset="blueprint"] .table,
+html[data-preset="blueprint"] .test-count-summary, html[data-preset="blueprint"] .test-count-title,
+html[data-preset="blueprint"] table.overview, html[data-preset="blueprint"] table.overview td,
+html[data-preset="blueprint"] table.overview th, html[data-preset="blueprint"] #results-dashboard,
+html[data-preset="blueprint"] #beforetable, html[data-preset="blueprint"] .clr {
+  background-color: #0a2031 !important;
+  border-color: #27627f !important;
+  color: #e3f6ff !important;
+}
+html[data-preset="blueprint"] #topheader, html[data-preset="blueprint"] .navbar,
+html[data-preset="blueprint"] .top_nav {
+  background-color: #0a2031 !important;
+  border-color: #27627f !important;
+}
+html[data-preset="blueprint"] .breadcrumbs, html[data-preset="blueprint"] .breadcrumbs a,
+html[data-preset="blueprint"] .date-and-time { color: #91b8ca !important; }
+html[data-preset="blueprint"] body::before {
+  background: transparent !important;
+  border: 1.5px dashed #66d9ef !important;
+  color: #66d9ef !important;
+  border-radius: 0 !important;
+}
+/* Blueprint — light */
+html[data-theme="light"][data-preset="blueprint"] body,
+html[data-theme="light"][data-preset="blueprint"] body.results-page {
+  background-color: #edf7fa !important;
+  background-image:
+    linear-gradient(#b5d5e1 1px, transparent 1px),
+    linear-gradient(90deg, #b5d5e1 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+  color: #123344 !important;
+}
+html[data-theme="light"][data-preset="blueprint"] h1,
+html[data-theme="light"][data-preset="blueprint"] h2,
+html[data-theme="light"][data-preset="blueprint"] h3,
+html[data-theme="light"][data-preset="blueprint"] h4 {
+  color: #087f9c !important;
+}
+html[data-theme="light"][data-preset="blueprint"] a { color: #087f9c !important; }
+html[data-theme="light"][data-preset="blueprint"] .card,
+html[data-theme="light"][data-preset="blueprint"] .panel,
+html[data-theme="light"][data-preset="blueprint"] .x_panel,
+html[data-theme="light"][data-preset="blueprint"] .test-results,
+html[data-theme="light"][data-preset="blueprint"] .results-table,
+html[data-theme="light"][data-preset="blueprint"] .container-fluid,
+html[data-theme="light"][data-preset="blueprint"] .tab-content,
+html[data-theme="light"][data-preset="blueprint"] .summary {
+  background-color: rgba(249, 253, 255, 0.95) !important;
+  border-color: #78aabd !important;
+  color: #123344 !important;
+}
+html[data-theme="light"][data-preset="blueprint"] table,
+html[data-theme="light"][data-preset="blueprint"] .table,
+html[data-theme="light"][data-preset="blueprint"] .dataTable {
+  background-color: rgba(249, 253, 255, 0.95) !important;
+  color: #123344 !important;
+}
+html[data-theme="light"][data-preset="blueprint"] table th,
+html[data-theme="light"][data-preset="blueprint"] .table th {
+  background-color: #f9fdff !important;
+  color: #4e7486 !important;
+  border-color: #78aabd !important;
+  border-bottom: 2px dashed #78aabd !important;
+}
+html[data-theme="light"][data-preset="blueprint"] table td,
+html[data-theme="light"][data-preset="blueprint"] .table td {
+  border-color: #78aabd !important;
+}
+html[data-theme="light"][data-preset="blueprint"] .nav-tabs > li.active > a,
+html[data-theme="light"][data-preset="blueprint"] .nav-tabs > li.active > a:hover {
+  background-color: #f9fdff !important;
+  border-color: #78aabd !important;
+  border-bottom-color: #f9fdff !important;
+  color: #087f9c !important;
+}
+html[data-theme="light"][data-preset="blueprint"] .middlb,
+html[data-theme="light"][data-preset="blueprint"] table.overview,
+html[data-theme="light"][data-preset="blueprint"] #beforetable,
+html[data-theme="light"][data-preset="blueprint"] .clr {
+  background-color: #f9fdff !important;
+  border-color: #78aabd !important;
+  color: #123344 !important;
+}
+html[data-theme="light"][data-preset="blueprint"] #topheader,
+html[data-theme="light"][data-preset="blueprint"] .navbar {
+  background-color: #f9fdff !important;
+  border-color: #78aabd !important;
+}
+html[data-theme="light"][data-preset="blueprint"] body::before {
+  border-color: #087f9c !important;
+  color: #087f9c !important;
+}
+
+/* ============================ EDITORIAL ==============================
+   Publicacion: papel calido, titulares serif, acento bermellon.
+   ===================================================================== */
+html[data-preset="editorial"] body,
+html[data-preset="editorial"] body.results-page {
+  background-color: #181611 !important;
+  background-image:
+    linear-gradient(90deg, transparent 0, transparent 5.4rem, rgba(221, 107, 61, 0.22) 5.4rem, rgba(221, 107, 61, 0.22) calc(5.4rem + 1px), transparent calc(5.4rem + 1px)),
+    repeating-linear-gradient(0deg, transparent 0, transparent 31px, rgba(98, 90, 74, 0.40) 31px, rgba(98, 90, 74, 0.40) 32px) !important;
+  background-attachment: fixed;
+  color: #f4eddf !important;
+}
+html[data-preset="editorial"] h1, html[data-preset="editorial"] h2,
+html[data-preset="editorial"] h3, html[data-preset="editorial"] h4,
+html[data-preset="editorial"] .title, html[data-preset="editorial"] .page-title {
+  font-family: Georgia, "Times New Roman", Songti SC, serif !important;
+  color: #f4eddf !important;
+  letter-spacing: -0.01em !important;
+}
+html[data-preset="editorial"] a { color: #dd6b3d !important; }
+html[data-preset="editorial"] a:hover { color: #f0a080 !important; }
+html[data-preset="editorial"] .card, html[data-preset="editorial"] .panel,
+html[data-preset="editorial"] .x_panel, html[data-preset="editorial"] .test-results,
+html[data-preset="editorial"] .results-table, html[data-preset="editorial"] .container-fluid,
+html[data-preset="editorial"] .tab-content, html[data-preset="editorial"] .summary {
+  background-color: rgba(35, 31, 24, 0.96) !important;
+  border-color: #625a4a !important;
+  color: #f4eddf !important;
+}
+html[data-preset="editorial"] table, html[data-preset="editorial"] .table,
+html[data-preset="editorial"] .dataTable {
+  background-color: rgba(35, 31, 24, 0.96) !important;
+  color: #f4eddf !important;
+}
+html[data-preset="editorial"] table th, html[data-preset="editorial"] .table th {
+  background-color: #231f18 !important;
+  color: #b9ae9b !important;
+  border-color: #625a4a !important;
+}
+html[data-preset="editorial"] table td, html[data-preset="editorial"] .table td {
+  border-color: #625a4a !important;
+}
+html[data-preset="editorial"] .nav-tabs > li > a { color: #b9ae9b !important; }
+html[data-preset="editorial"] .nav-tabs > li.active > a,
+html[data-preset="editorial"] .nav-tabs > li.active > a:hover {
+  background-color: #231f18 !important;
+  border-color: #625a4a !important;
+  border-bottom-color: #231f18 !important;
+  color: #dd6b3d !important;
+}
+html[data-preset="editorial"] .middlb, html[data-preset="editorial"] .table,
+html[data-preset="editorial"] .test-count-summary, html[data-preset="editorial"] .test-count-title,
+html[data-preset="editorial"] table.overview, html[data-preset="editorial"] table.overview td,
+html[data-preset="editorial"] table.overview th, html[data-preset="editorial"] #results-dashboard,
+html[data-preset="editorial"] #beforetable, html[data-preset="editorial"] .clr {
+  background-color: #231f18 !important;
+  border-color: #625a4a !important;
+  color: #f4eddf !important;
+}
+html[data-preset="editorial"] #topheader, html[data-preset="editorial"] .navbar,
+html[data-preset="editorial"] .top_nav {
+  background-color: #231f18 !important;
+  border-color: #625a4a !important;
+}
+html[data-preset="editorial"] .breadcrumbs, html[data-preset="editorial"] .breadcrumbs a,
+html[data-preset="editorial"] .date-and-time { color: #b9ae9b !important; }
+html[data-preset="editorial"] .middlecontent { max-width: 1040px; margin: 0 auto; }
+html[data-preset="editorial"] body::before {
+  background: transparent !important;
+  border: 1.5px solid #dd6b3d !important;
+  color: #dd6b3d !important;
+  border-radius: 0 !important;
+}
+/* Editorial — light */
+html[data-theme="light"][data-preset="editorial"] body,
+html[data-theme="light"][data-preset="editorial"] body.results-page {
+  background-color: #f2eee5 !important;
+  background-image:
+    linear-gradient(90deg, transparent 0, transparent 5.4rem, rgba(187, 76, 35, 0.18) 5.4rem, rgba(187, 76, 35, 0.18) calc(5.4rem + 1px), transparent calc(5.4rem + 1px)),
+    repeating-linear-gradient(0deg, transparent 0, transparent 31px, rgba(216, 208, 194, 0.55) 31px, rgba(216, 208, 194, 0.55) 32px) !important;
+  color: #242018 !important;
+}
+html[data-theme="light"][data-preset="editorial"] h1,
+html[data-theme="light"][data-preset="editorial"] h2,
+html[data-theme="light"][data-preset="editorial"] h3,
+html[data-theme="light"][data-preset="editorial"] h4 {
+  color: #242018 !important;
+}
+html[data-theme="light"][data-preset="editorial"] a { color: #bb4c23 !important; }
+html[data-theme="light"][data-preset="editorial"] .card,
+html[data-theme="light"][data-preset="editorial"] .panel,
+html[data-theme="light"][data-preset="editorial"] .x_panel,
+html[data-theme="light"][data-preset="editorial"] .test-results,
+html[data-theme="light"][data-preset="editorial"] .results-table,
+html[data-theme="light"][data-preset="editorial"] .container-fluid,
+html[data-theme="light"][data-preset="editorial"] .tab-content,
+html[data-theme="light"][data-preset="editorial"] .summary {
+  background-color: rgba(251, 248, 241, 0.97) !important;
+  border-color: #c4b9a6 !important;
+  color: #242018 !important;
+}
+html[data-theme="light"][data-preset="editorial"] table,
+html[data-theme="light"][data-preset="editorial"] .table,
+html[data-theme="light"][data-preset="editorial"] .dataTable {
+  background-color: rgba(251, 248, 241, 0.97) !important;
+  color: #242018 !important;
+}
+html[data-theme="light"][data-preset="editorial"] table th,
+html[data-theme="light"][data-preset="editorial"] .table th {
+  background-color: #fbf8f1 !important;
+  color: #6f6658 !important;
+  border-color: #c4b9a6 !important;
+}
+html[data-theme="light"][data-preset="editorial"] table td,
+html[data-theme="light"][data-preset="editorial"] .table td {
+  border-color: #c4b9a6 !important;
+}
+html[data-theme="light"][data-preset="editorial"] .nav-tabs > li.active > a,
+html[data-theme="light"][data-preset="editorial"] .nav-tabs > li.active > a:hover {
+  background-color: #fbf8f1 !important;
+  border-color: #c4b9a6 !important;
+  border-bottom-color: #fbf8f1 !important;
+  color: #bb4c23 !important;
+}
+html[data-theme="light"][data-preset="editorial"] .middlb,
+html[data-theme="light"][data-preset="editorial"] table.overview,
+html[data-theme="light"][data-preset="editorial"] #beforetable,
+html[data-theme="light"][data-preset="editorial"] .clr {
+  background-color: #fbf8f1 !important;
+  border-color: #c4b9a6 !important;
+  color: #242018 !important;
+}
+html[data-theme="light"][data-preset="editorial"] #topheader,
+html[data-theme="light"][data-preset="editorial"] .navbar {
+  background-color: #fbf8f1 !important;
+  border-color: #c4b9a6 !important;
+}
+html[data-theme="light"][data-preset="editorial"] body::before {
+  border-color: #bb4c23 !important;
+  color: #bb4c23 !important;
 }

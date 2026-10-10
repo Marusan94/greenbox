@@ -17,12 +17,22 @@ function main() {
     process.exit(1);
   }
   fs.copyFileSync(path.join('assets', CSS), path.join(DIR, CSS));
-  const tag = FONT + '<link rel="stylesheet" href="' + CSS + '" data-' + MARK + '>';
+  // Lee de la URL el tema (?theme=) y el preset global del hub (?preset=),
+  // que Serenity hereda para paridad visual con el resto de salas.
+  const themeInit =
+    '<script data-gr-theme>try{var __q=new URLSearchParams(location.search),' +
+    '__t=__q.get("theme"),__p=__q.get("preset");' +
+    'document.documentElement.dataset.theme=(__t==="light"?"light":"dark");' +
+    'if(__p==="classic"||__p==="signal"||__p==="blueprint"||__p==="editorial")' +
+    'document.documentElement.dataset.preset=__p;}catch(e){}</script>';
+  const tag = FONT + themeInit + '<link rel="stylesheet" href="' + CSS + '" data-' + MARK + '>';
   let n = 0;
   for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.html'))) {
     const p = path.join(DIR, f);
     let html = fs.readFileSync(p, 'utf8');
-    if (html.includes('data-' + MARK)) continue;
+    // Limpia inyecciones previas y aplica el bundle fresco (css + tema + preset).
+    html = html.replace(/<link[^>]*data-gr-skin[^>]*>/g, '');
+    html = html.replace(/<script data-gr-theme>[\s\S]*?<\/script>/g, '');
     if (!html.includes('</head>')) continue;
     html = html.replace('</head>', tag + '</head>');
     fs.writeFileSync(p, html);
