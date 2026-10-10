@@ -78,7 +78,7 @@
       "from": "web",
       "to": "actor",
       "y": 250,
-      "label": "= Terramind — Inteligencia Ambiental AI | Valle de Ab…",
+      "label": "= Terramind — Inteligencia Am…",
       "variant": "return"
     },
     {
@@ -121,7 +121,7 @@
       "dot": "cyan",
       "title": "Recorrido verificado",
       "items": [
-        "1 tareas ejecutadas (1433 ms en pasos)",
+        "1 tareas ejecutadas (3976 ms en pasos)",
         "3 preguntas con respuesta visible",
         "Tres reintentos: sin sleeps fijos en el codigo"
       ]

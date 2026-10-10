@@ -104,7 +104,7 @@
       "dot": "cyan",
       "title": "Recorrido verificado",
       "items": [
-        "1 tareas ejecutadas (2221 ms en pasos)",
+        "1 tareas ejecutadas (1296 ms en pasos)",
         "2 preguntas con respuesta visible",
         "Tres reintentos: sin sleeps fijos en el codigo"
       ]

@@ -47,7 +47,7 @@ function build(flow) {
       messages.push({ id: 'm' + n, from: 'actor', to: 'web', y, label: '? ' + cut(e.name, 52), variant: 'default', note: cut(e.answer, 36) });
       y += STEP;
       n += 1;
-      messages.push({ id: 'm' + n, from: 'web', to: 'actor', y, label: '= ' + cut(e.answer, 52), variant: 'return' });
+      messages.push({ id: 'm' + n, from: 'web', to: 'actor', y, label: '= ' + cut(e.answer, 28), variant: 'return' });
       y += STEP;
     }
   }

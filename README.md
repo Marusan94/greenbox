@@ -10,11 +10,15 @@
 
 ## Hub de reportes (generados localmente)
 
-![Hub con el mapa del sistema](docs/img/hub.png)
+<video src="docs/img/tour.mp4" controls width="100%"></video>
 
-`npm test && npm run flow:report && npm run flow:hub` genera `flow-report/hub.html`: barra lateral con el mapa del sistema, las historias Flow, las 9 secuencias del visor oficial y los reportes Playwright/Serenity.
+`npm test && npm run flow:report && npm run flow:hub` genera `flow-report/hub.html`: barra lateral con el mapa del sistema, las historias Flow, las 9 secuencias del visor oficial y los reportes Playwright/Serenity. Los temas Dark/Light y los presets Classic/Signal/Blueprint/Editorial se conmutan desde el hub y aplican a todas las vistas.
 
 ![Mapa del sistema en visor Archify](docs/img/system.png)
+
+![Historias Flow por prueba](docs/img/flow-light.png)
+
+![Secuencia oficial de una prueba](docs/img/sequence.png)
 
 ## 1. Cobertura frente a una oferta real de Analista QA (Medellín/Bogotá)
 
