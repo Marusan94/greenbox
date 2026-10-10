@@ -158,8 +158,8 @@ html[data-preset="signal"] body,
 html[data-preset="signal"] body.results-page {
   background-color: #030711 !important;
   background-image:
-    radial-gradient(circle at 18% -8%, rgba(34, 211, 238, 0.28), transparent 55rem),
-    radial-gradient(circle at 92% 12%, rgba(139, 92, 246, 0.22), transparent 50rem) !important;
+    radial-gradient(circle at 18% -8%, rgba(34, 211, 238, 0.12), transparent 40rem),
+    radial-gradient(circle at 92% 12%, rgba(139, 92, 246, 0.10), transparent 35rem) !important;
   background-attachment: fixed;
   color: #f5fbff !important;
 }
@@ -167,7 +167,7 @@ html[data-preset="signal"] h1, html[data-preset="signal"] h2,
 html[data-preset="signal"] h3, html[data-preset="signal"] h4,
 html[data-preset="signal"] .title, html[data-preset="signal"] .page-title {
   color: #f5fbff !important;
-  text-shadow: 0 0 28px rgba(34, 211, 238, 0.65) !important;
+  text-shadow: 0 0 16px rgba(34, 211, 238, 0.30) !important;
 }
 html[data-preset="signal"] a { color: #22d3ee !important; }
 html[data-preset="signal"] a:hover { color: #a5f3fc !important; }
@@ -175,10 +175,10 @@ html[data-preset="signal"] .card, html[data-preset="signal"] .panel,
 html[data-preset="signal"] .x_panel, html[data-preset="signal"] .test-results,
 html[data-preset="signal"] .results-table, html[data-preset="signal"] .container-fluid,
 html[data-preset="signal"] .tab-content, html[data-preset="signal"] .summary {
-  background-color: rgba(6, 14, 28, 0.88) !important;
+  background-color: rgba(10, 22, 38, 0.85) !important;
   border-color: #1d3350 !important;
   color: #f5fbff !important;
-  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.18), 0 24px 70px rgba(3, 7, 17, 0.75) !important;
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.10), 0 16px 44px rgba(3, 7, 17, 0.50) !important;
 }
 html[data-preset="signal"] table, html[data-preset="signal"] .table,
 html[data-preset="signal"] .dataTable {
@@ -196,11 +196,11 @@ html[data-preset="signal"] table td, html[data-preset="signal"] .table td {
 html[data-preset="signal"] .nav-tabs > li > a { color: #9eb0c7 !important; }
 html[data-preset="signal"] .nav-tabs > li.active > a,
 html[data-preset="signal"] .nav-tabs > li.active > a:hover {
-  background-color: rgba(34, 211, 238, 0.14) !important;
+  background-color: rgba(34, 211, 238, 0.10) !important;
   border-color: #22d3ee !important;
-  border-bottom-color: rgba(34, 211, 238, 0.14) !important;
+  border-bottom-color: rgba(34, 211, 238, 0.10) !important;
   color: #22d3ee !important;
-  box-shadow: 0 0 24px rgba(34, 211, 238, 0.35) !important;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.20) !important;
 }
 html[data-preset="signal"] .middlb, html[data-preset="signal"] .table,
 html[data-preset="signal"] .test-count-summary, html[data-preset="signal"] .test-count-title,
@@ -229,8 +229,8 @@ html[data-theme="light"][data-preset="signal"] body,
 html[data-theme="light"][data-preset="signal"] body.results-page {
   background-color: #f4f9fc !important;
   background-image:
-    radial-gradient(circle at 18% -8%, rgba(6, 182, 212, 0.20), transparent 55rem),
-    radial-gradient(circle at 92% 12%, rgba(139, 92, 246, 0.14), transparent 50rem) !important;
+    radial-gradient(circle at 18% -8%, rgba(6, 182, 212, 0.10), transparent 40rem),
+    radial-gradient(circle at 92% 12%, rgba(139, 92, 246, 0.08), transparent 35rem) !important;
   color: #102638 !important;
 }
 html[data-theme="light"][data-preset="signal"] h1,
@@ -457,8 +457,8 @@ html[data-preset="editorial"] body,
 html[data-preset="editorial"] body.results-page {
   background-color: #181611 !important;
   background-image:
-    linear-gradient(90deg, transparent 0, transparent 5.4rem, rgba(221, 107, 61, 0.22) 5.4rem, rgba(221, 107, 61, 0.22) calc(5.4rem + 1px), transparent calc(5.4rem + 1px)),
-    repeating-linear-gradient(0deg, transparent 0, transparent 31px, rgba(98, 90, 74, 0.40) 31px, rgba(98, 90, 74, 0.40) 32px) !important;
+    linear-gradient(90deg, transparent 0, transparent 5.4rem, rgba(221, 107, 61, 0.12) 5.4rem, rgba(221, 107, 61, 0.12) calc(5.4rem + 1px), transparent calc(5.4rem + 1px)),
+    repeating-linear-gradient(0deg, transparent 0, transparent 31px, rgba(98, 90, 74, 0.22) 31px, rgba(98, 90, 74, 0.22) 32px) !important;
   background-attachment: fixed;
   color: #f4eddf !important;
 }
@@ -528,8 +528,8 @@ html[data-theme="light"][data-preset="editorial"] body,
 html[data-theme="light"][data-preset="editorial"] body.results-page {
   background-color: #f2eee5 !important;
   background-image:
-    linear-gradient(90deg, transparent 0, transparent 5.4rem, rgba(187, 76, 35, 0.18) 5.4rem, rgba(187, 76, 35, 0.18) calc(5.4rem + 1px), transparent calc(5.4rem + 1px)),
-    repeating-linear-gradient(0deg, transparent 0, transparent 31px, rgba(216, 208, 194, 0.55) 31px, rgba(216, 208, 194, 0.55) 32px) !important;
+    linear-gradient(90deg, transparent 0, transparent 5.4rem, rgba(187, 76, 35, 0.10) 5.4rem, rgba(187, 76, 35, 0.10) calc(5.4rem + 1px), transparent calc(5.4rem + 1px)),
+    repeating-linear-gradient(0deg, transparent 0, transparent 31px, rgba(216, 208, 194, 0.35) 31px, rgba(216, 208, 194, 0.35) 32px) !important;
   color: #242018 !important;
 }
 html[data-theme="light"][data-preset="editorial"] h1,
