@@ -1,5 +1,7 @@
 # ✅ Greenbox — Automatización de pruebas con Playwright + Screenplay sobre 4 proyectos reales
 
+**Demo en vivo:** https://greenbox-portfolio.vercel.app
+
 [![CI](https://github.com/Marusan94/greenbox/actions/workflows/ci.yml/badge.svg)](https://github.com/Marusan94/greenbox/actions)
 ![Playwright](https://img.shields.io/badge/Playwright-1.64-45ba4b)
 ![Serenity/JS](https://img.shields.io/badge/Serenity%2FJS-3.48-7c3aed)

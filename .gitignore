@@ -8,3 +8,5 @@ flow-check.png
 dist/
 target/
 *.log
+
+.vercel
