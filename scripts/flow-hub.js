@@ -156,8 +156,8 @@ function main() {
     '<nav><div class="grp">VISTAS</div>' +
     '<button data-src="archify/system.html" class="on">Mapa del sistema</button>' +
     '<button data-src="index.html">Historias Flow</button>' +
-    '<button data-src="../playwright-report/index.html">Reporte Playwright</button>' +
-    '<button data-src="../target/site/serenity/index.html">Reporte Serenity</button>' +
+    '<button data-src="playwright-report/index.html">Reporte Playwright</button>' +
+    '<button data-src="serenity/index.html">Reporte Serenity</button>' +
     '<div class="grp">SECUENCIAS · VISOR OFICIAL</div>' + seqLinks + '</nav>' +
     '<div class="meta"><b>8 ✓</b> · 4 skip · 0 fallos<br>flow-report/' + today + '</div></aside>' +
     '<main><iframe id="stage" src="archify/system.html" title="vista"></iframe></main>' +
@@ -175,6 +175,7 @@ function main() {
     'function withParams(src){var s=String(src).split("?")[0];return s+"?theme="+HT+"&preset="+HP;}' +
     'function markPreset(){var bs=document.querySelectorAll("#hubFlowMenu button");for(var k=0;k<bs.length;k++)bs[k].classList.toggle("sel",bs[k].getAttribute("data-p")===HP);}' +
     'function go(src,btn){stage.classList.add("switching");' +
+    'clearTimeout(window.__grT);window.__grT=setTimeout(function(){stage.classList.remove("switching");},8000);' +
     'setTimeout(function(){stage.src=withParams(src);},120);' +
     'var bs=document.querySelectorAll("nav button");for(var i=0;i<bs.length;i++)bs[i].classList.remove("on");if(btn)btn.classList.add("on");try{location.hash="#/"+src;}catch(e){}}' +
     'q("#hubThemeV").textContent=(HT==="dark"?"Dark":"Light");markPreset();' +
@@ -183,7 +184,8 @@ function main() {
     'q("#hubFlow").onclick=function(ev){ev.stopPropagation();q("#hubFlowMenu").classList.toggle("open");};' +
     'document.addEventListener("click",function(){var m=q("#hubFlowMenu");if(m)m.classList.remove("open");});' +
     'q("#hubFlowMenu").addEventListener("click",function(ev){var m=ev.target.getAttribute("data-p");if(!m)return;HP=m;paintHub();markPreset();try{localStorage.setItem("gr-hub-preset",HP);}catch(e){}reloadFrame();});' +
-    'stage.addEventListener("load",function(){stage.classList.remove("switching");});' +
+    'stage.addEventListener("load",function(){clearTimeout(window.__grT);stage.classList.remove("switching");});' +
+    'stage.addEventListener("error",function(){clearTimeout(window.__grT);stage.classList.remove("switching");});' +
     'var btns=document.querySelectorAll("nav button");for(var i=0;i<btns.length;i++)(function(b){b.addEventListener("click",function(){go(b.getAttribute("data-src"),b);});})(btns[i]);' +
     'try{var h=location.hash.replace(/^#\\/+/, "");if(h){for(var j=0;j<btns.length;j++){var b0=btns[j].getAttribute("data-src");if(b0&&(h===b0||h.indexOf(b0+"?")===0)){go(b0,btns[j]);break;}}}}catch(e){}' +
     'if(!location.hash&&(HT!=="dark"||HP!=="classic")){reloadFrame();}' +
@@ -201,8 +203,34 @@ function main() {
 
   fs.mkdirSync('flow-report', { recursive: true });
   fs.writeFileSync(OUT, html);
+  // NOTA: no sobrescribir flow-report/index.html (lo genera flow-report.js con
+  // Historias Flow). Sobrescribirlo anidaba el Hub dentro de su propio iframe.
+  vendorReports();
   console.log('Hub OK: vistas + ' + seqs.length + ' secuencias -> ' + OUT);
   void path;
+}
+
+// Copia los reportes Playwright/Serenity dentro de flow-report/ para que los
+// botones del Hub funcionen también desplegados (Vercel solo sirve
+// outputDirectory). No toca nada fuera de flow-report/.
+function vendorReports() {
+  const pairs = [
+    ['playwright-report', 'flow-report/playwright-report'],
+    [path.join('target', 'site', 'serenity'), 'flow-report/serenity'],
+  ];
+  for (const [src, dst] of pairs) {
+    try {
+      if (!fs.existsSync(src)) {
+        console.log('Vendor skip (no existe): ' + src);
+        continue;
+      }
+      fs.rmSync(dst, { recursive: true, force: true });
+      fs.cpSync(src, dst, { recursive: true });
+      console.log('Vendor OK: ' + src + ' -> ' + dst);
+    } catch (e) {
+      console.log('Vendor FAIL ' + src + ': ' + e.message);
+    }
+  }
 }
 
 main();

@@ -3,8 +3,10 @@
   "version": 2,
   "name": "greenbox-portfolio",
   "regions": ["iad1"],
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "npm install --legacy-peer-deps --force",
   "buildCommand": "npm run build",
+  "outputDirectory": "flow-report",
+  "framework": null,
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
@@ -14,8 +16,13 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
-      "source": "/(flow-report|playwright-report|target)/(.*)",
+        "source": "/(archify|playwright-report|serenity|target)/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
     }
-  ]
+  ],
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 30
+    }
+  }
 }
